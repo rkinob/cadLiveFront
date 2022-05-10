@@ -1,0 +1,8 @@
+
+.modal-dialog {
+    max-width: 1490px !important;
+    min-width: 971px !important;
+    width: 100% !important;
+}
+.modal-lg { max-width: 1490px !important; }
+
