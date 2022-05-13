@@ -1,8 +1,13 @@
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { LoginRequest } from "../models/login-request";
 import { BaseService } from "./base.service";
+
+@Injectable({
+  providedIn: "root"
+})
 
 // usuarioService Class
 export class UsuarioService extends BaseService {
@@ -22,7 +27,7 @@ export class UsuarioService extends BaseService {
 
    let url = this.uri + "Logar";
 
-    return this.http.post<LoginRequest>(url, body, this.ObterHeaderJson())
+    return this.http.post<LoginRequest>(url + '/logar', body, this.ObterHeaderJson())
         .pipe(
             catchError(this.errorHandler),
             retry(4)

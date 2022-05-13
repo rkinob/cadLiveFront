@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   senha = this.formLogin.controls.senha;
 
   constructor(private _router: Router,
-              private _fb: FormBuilder) { }
+              private _fb: FormBuilder,
+              private _usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
 
@@ -46,10 +48,13 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
-  // entrar function
+
   public entrar() {
+    console.log(this.formLogin.valid);
     if (this.formLogin.valid) {
-      this._router.navigate(['/home']);
+      if(this._usuarioService.verificarUsuario(this.login.value, this.senha.value)) {
+        this._router.navigate(['/home']);
+      }
     }
   }
 

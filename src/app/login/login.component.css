@@ -1,0 +1,35 @@
+.card-login{
+  width: 400px;
+}
+
+.max-height {
+  height: 100%;
+}
+
+.logo{
+  width: 60%;
+}
+
+.logo-estado{
+width: 50%;
+}
+
+.logo-pei{
+width: 35%;
+}
+
+.mat-stepper-horizontal {
+margin-top: 8px;
+}
+
+.mat-form-field {
+margin-top: 16px;
+}
+
+.text-primary {
+font-weight: bold;
+}
+
+.indicacao {
+font-size: 12px;
+}

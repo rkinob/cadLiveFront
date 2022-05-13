@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import localePt from '@angular/common/locales/pt';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UsuarioService } from './services/usuario.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -27,7 +28,9 @@ registerLocaleData(localePt, 'pt');
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [
+    UsuarioService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
