@@ -9,7 +9,6 @@ import { ProdutoRoutes } from "./product.routing";
 import { NgxPaginationModule } from "ngx-pagination";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ProdutoModalCreateEditComponent } from './product-modal-create-edit/product-modal-create-edit.component';
-import { CurrencyFormatterDirective } from "../shared/currency-formatter.directive";
 
 import {LOCALE_ID} from '@angular/core';
 
@@ -18,8 +17,7 @@ import {LOCALE_ID} from '@angular/core';
   declarations: [
     ProdutoDetailsComponent,
     ProdutoListComponent,
-    ProdutoModalCreateEditComponent,
-    CurrencyFormatterDirective
+    ProdutoModalCreateEditComponent
   ],
   imports: [
     CommonModule,

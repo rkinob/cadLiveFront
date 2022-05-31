@@ -11,6 +11,8 @@ import localePt from '@angular/common/locales/pt';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsuarioService } from './services/usuario.service';
+import { LiveModule } from './live/live.module';
+import { CurrencyFormatterDirective } from './shared/currency-formatter.directive';
 
 registerLocaleData(localePt, 'pt');
 
@@ -18,13 +20,15 @@ registerLocaleData(localePt, 'pt');
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    CurrencyFormatterDirective
       ],
   imports: [
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AppRoutingModule,
     ProdutoModule,
+    LiveModule,
     ReactiveFormsModule
   ],
   providers: [

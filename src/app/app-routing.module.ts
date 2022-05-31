@@ -11,6 +11,12 @@ const routes: Routes = [
       module => module.ProdutoModule
     )
   },
+  {
+    path: '',
+    loadChildren: () => import(`./live/live.module`).then(
+      module => module.LiveModule
+    )
+  },
   {path: '**', redirectTo: '', pathMatch: 'full'},];
 
 @NgModule({
