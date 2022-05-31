@@ -1,6 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -38,4 +40,30 @@ export class FuncoesUtils {
     return valor;
   }
 
+  errorHandler(error: HttpErrorResponse) {
+    console.log(error)
+    if (error.error instanceof ErrorEvent) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.log('Um erro ocorreu:', error.error.message);
+    } else {
+        if (error.status === 401) {
+            location.href = '#/login';
+            return throwError('Acesso não autorizado!')
+        } else if (error.status === 403) {
+            location.href = '#/';
+            return throwError('Não tem acesso a funcionalidade!')
+        } else if (error.status === 400) {
+            if (error.error) {
+                if (error.error[Object.keys(error.error)[0]].value)
+                    return throwError(error.error[Object.keys(error.error)[0]].value);
+
+                return throwError('Algo de errado aconcetou. Por favor tente novamente!');
+            } else {
+                return throwError(error);
+            }
+        }
+    }
+    // return an observable with a user-facing error message
+    return throwError('Algo de errado aconcetou. Por favor tente novamente!');
+}
 }

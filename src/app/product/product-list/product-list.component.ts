@@ -94,6 +94,11 @@ export class ProdutoListComponent implements OnInit {
     return params;
   }
 
+  private paginate (array: Produto[], pageSize: number, pageNumber: number) {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+  }
+
+
   retrieveProdutos(): void {
     const params = this.getRequestParams(this.productName, this.page, this.pageSize);
 
@@ -101,8 +106,9 @@ export class ProdutoListComponent implements OnInit {
     .subscribe(
       response => {
         // = response;
-        this.products = response.items;
-        this.count = response.totalCount;
+        console.log(response);
+        this.products = this.paginate(response, this.pageSize,  this.page) ;
+        this.count = response.length;
 
       },
       error => {

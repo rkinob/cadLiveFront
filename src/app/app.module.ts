@@ -26,7 +26,6 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     ProdutoModule,
     ReactiveFormsModule
-
   ],
   providers: [
     UsuarioService

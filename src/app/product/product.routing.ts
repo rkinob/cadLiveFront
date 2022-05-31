@@ -1,11 +1,12 @@
 import { Routes } from "@angular/router";
-import { ProdutoCreateComponent } from "./product-create/product-create.component";
+import { AuthGuard } from "../authorization/auth.guard";
 import { ProdutoDetailsComponent } from "./product-details/product-details.component";
 import { ProdutoListComponent } from "./product-list/product-list.component";
+import { ProdutoModalCreateEditComponent } from "./product-modal-create-edit/product-modal-create-edit.component";
 
 export const ProdutoRoutes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
-  { path: 'products', component: ProdutoListComponent },
-  { path: 'products/:id', component: ProdutoDetailsComponent },
-  { path: 'create', component: ProdutoCreateComponent }
+  { path: 'products', component: ProdutoListComponent , canActivate: [AuthGuard]},
+  { path: 'products/:id', component: ProdutoDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'create', component: ProdutoModalCreateEditComponent, canActivate: [AuthGuard] }
 ];

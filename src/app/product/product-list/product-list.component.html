@@ -35,7 +35,8 @@
         <table class="table">
           <thead class="text-gray">
               <tr>
-                  <th >Nome</th>
+                <th >Cód.</th>
+                <th >Nome</th>
                   <th>Especificação</th>
                   <th>Categoria</th>
                   <th>Custo</th>
@@ -53,7 +54,8 @@
                 let i = index"
                 [class.active]="i == currentIndex"
               >
-                  <td width="25%">{{product.nome}}</td>
+              <td >{{product.codigo}}</td>
+              <td width="25%">{{product.descricao}}</td>
                   <td>{{product.especificacao}}</td>
                   <td>{{product.categoria?.descricao}}</td>
                   <td>{{product.precoCusto | currency:'BRL'}}</td>

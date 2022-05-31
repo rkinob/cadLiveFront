@@ -2,7 +2,6 @@ import { CommonModule, CurrencyPipe } from "@angular/common";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-import { ProdutoCreateComponent } from './product-create/product-create.component';
 import { ProdutoDetailsComponent } from './product-details/product-details.component';
 import { ProdutoListComponent } from './product-list/product-list.component';
 import { RouterModule } from "@angular/router";
@@ -17,7 +16,6 @@ import {LOCALE_ID} from '@angular/core';
 
 @NgModule({
   declarations: [
-    ProdutoCreateComponent,
     ProdutoDetailsComponent,
     ProdutoListComponent,
     ProdutoModalCreateEditComponent,

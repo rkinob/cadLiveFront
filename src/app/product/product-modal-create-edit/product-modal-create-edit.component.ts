@@ -35,47 +35,53 @@ export class ProdutoModalCreateEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarCategories();
+    console.log(this.product);
     this.carregarForm(this.product);
   }
 
   public carregarCategories() {
-    this.productService.readAllCategories().subscribe(cat =>  { this.categories = cat.lists; });
+    this.productService.readAllCategories().subscribe(cat =>  { this.categories = cat; });
   }
 
 
 
   formProduto = this._fb.group({
     id: [''],
-    Nome: ['', [Validators.required]],
-    Especificacao: ['', [Validators.required]],
-    Active: [''],
-    CategoriaId: ['',  [Validators.required]],
-    PrecoCusto: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
-    Preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
+    codigo: ['', [Validators.required]],
+    descricao: ['', [Validators.required]],
+    especificacao: ['', [Validators.required]],
+    ativo: [''],
+    categoriaId: ['',  [Validators.required]],
+    precoCusto: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
+    preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
 
   });
 
-  public IdProduto = this.formProduto.controls.id;
-  public Nome = this.formProduto.controls.Nome;
-  public Especificacao = this.formProduto.controls.Especificacao;
-  public Active = this.formProduto.controls.Active;
-  public CategoriaId = this.formProduto.controls.CategoriaId;
-  public Preco = this.formProduto.controls.Preco;
-  public PrecoCusto = this.formProduto.controls.PrecoCusto;
+  public idProduto = this.formProduto.controls.id;
+  public codigo = this.formProduto.controls.codigo;
+  public descricao = this.formProduto.controls.descricao;
+  public especificacao = this.formProduto.controls.especificacao;
+  public ativo = this.formProduto.controls.ativo;
+  public categoriaId = this.formProduto.controls.categoriaId;
+  public preco = this.formProduto.controls.preco;
+  public precoCusto = this.formProduto.controls.precoCusto;
 
   public carregarForm(product: Produto) {
 
     if(this.product) {
-      this.Nome.setValue(product.nome);
-      this.Especificacao.setValue(product.especificacao);
-      this.Active.setValue(product.active);
-      this.CategoriaId.setValue(product.categoria.id);
-      this.Preco.setValue(this.currencyPipe.transform(product.preco, 'BRL', '', '1.2-2'));
-      this.PrecoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
+      this.idProduto.setValue(this.product.id);
+      this.codigo.setValue(this.product.codigo);
+      this.descricao.setValue(product.descricao);
+      this.especificacao.setValue(product.especificacao);
+      this.ativo.setValue(product.ativo);
+      this.categoriaId.setValue(product.categoria.id);
+      this.preco.setValue(this.currencyPipe.transform(product.preco, 'BRL', '', '1.2-2'));
+      this.precoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
 
       this.titulo_modal = "Editar Produto";
     }
     else {
+      this.idProduto.setValue(null);
       this.titulo_modal = "Incluir Produto";
     }
 
@@ -91,30 +97,31 @@ export class ProdutoModalCreateEditComponent implements OnInit {
 
   public salvar(): void {
 
-
     if (this.formValido()) {
       if (this.product?.id)
-        this.IdProduto.setValue(this.product.id);
+        this.idProduto.setValue(this.product.id);
 
       let product = this.formProduto.value;
-      product.Price = this._funcoesUtils.parsePotentiallyGroupedFloat(product.Price.toString());
-      product.CostPrice = this._funcoesUtils.parsePotentiallyGroupedFloat(product.CostPrice.toString());
+      product.preco = this._funcoesUtils.parsePotentiallyGroupedFloat(product.preco.toString());
+      product.precoCusto = this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
 
-      console.log(product);
       if (this.product?.id) {
-
         this.updateProduto(product);
       }
 
-      else
+      else {
+        product.ativo = 1;
         this.addProduto(product);
+      }
+
+
 
     }
 
   }
 
   public addProduto(product: Produto) {
-    console.log(product);
+
     this.productService.create(product)
       .subscribe(
         next => {
@@ -122,12 +129,18 @@ export class ProdutoModalCreateEditComponent implements OnInit {
           this.toastr.success("Produto incluído com sucesso!");
           this.activeModal.close(true);
 
+        },
+        error => {
+         // console.log(error);
+          this.toastr.error(error);
+          this.activeModal.close(false);
         }
+
       );
   }
 
   public updateProduto(product: Produto) {
-    this.productService.update(product.id, product)
+    this.productService.update( product)
       .subscribe(
         next => {
           console.log(next);

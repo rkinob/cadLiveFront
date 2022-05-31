@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { LoginRequest } from "../models/login-request";
+import { LoginResponse } from "../models/login-response";
 import { BaseService } from "./base.service";
 
 @Injectable({
@@ -11,23 +12,23 @@ import { BaseService } from "./base.service";
 
 // usuarioService Class
 export class UsuarioService extends BaseService {
-  private uri = this.urlServiceV1+`Usuario/`;
+  private uri = this.urlServiceV1+`Api/Usuario/`;
   constructor(private http: HttpClient) {
     super()
   }
 
-  public verificarUsuario(login: string, senha: string): Observable<LoginRequest> {
+  public verificarUsuario(login: string, senha: string): Observable<LoginResponse> {
 
     var body = {
-            Data: {
-                Login: login,
-                Senha: senha
-            }
+
+         CdLogin: login,
+         Senha: senha
+
         }
 
-   let url = this.uri + "Logar";
+   let url = this.uri + "logar";
 
-    return this.http.post<LoginRequest>(url + '/logar', body, this.ObterHeaderJson())
+    return this.http.post<LoginResponse>(url , body, this.ObterHeaderJson())
         .pipe(
             catchError(this.errorHandler),
             retry(4)

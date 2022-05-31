@@ -27,7 +27,7 @@ export abstract class BaseService {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json;charset=utf-8',
-                'AccessToken': this.sessionStorageUtils.obterTokenUsuario(),
+                'Authorization': 'bearer ' + this.sessionStorageUtils.obterTokenUsuario(),
                 'access-control-allow-origin': 'http://localhost:5000/',
                 'Accept':'application/json;charset=utf-8',
                 'TKP': '0'

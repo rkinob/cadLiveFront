@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { sessionStorageUtils } from './utils/sessionStorage';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Loja da Flor';
+  constructor(private _sessionStorageUtils: sessionStorageUtils) { }
+
+  public getUsuarioEstaLogado(): boolean
+  {
+    return this._sessionStorageUtils.usuarioEstaLogado();
+  }
+
 }

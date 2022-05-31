@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginRequest } from '../models/login-request';
+import { UsuarioRequest } from '../models/usuario-request';
 import { UsuarioService } from '../services/usuario.service';
-
+import jwt_decode from 'jwt-decode';
+import { BaseRequest } from '../models/base-request';
+import { sessionStorageUtils } from '../utils/sessionStorage';
+import { ToastrService } from 'ngx-toastr';
+import { BaseResponse } from '../product/models/base-response';
+import { Usuario } from '../models/usuario';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +27,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private _router: Router,
               private _fb: FormBuilder,
-              private _usuarioService: UsuarioService) { }
+              private _usuarioService: UsuarioService,
+              private _sessionStorageUtils: sessionStorageUtils,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -52,9 +61,27 @@ export class LoginComponent implements OnInit {
   public entrar() {
     console.log(this.formLogin.valid);
     if (this.formLogin.valid) {
-      if(this._usuarioService.verificarUsuario(this.login.value, this.senha.value)) {
-        this._router.navigate(['/home']);
-      }
+      this._usuarioService.verificarUsuario(this.login.value, this.senha.value).subscribe(
+        next => {
+
+          //if (!loginRequest.ValidationSummary) {
+            const token = next.token;
+            //const decoded = jwt_decode<Usuario>(token);
+           // const data: UsuarioRequest = decoded.Data;   ;
+            this._sessionStorageUtils.salvarTokenUsuario(token);
+
+            // redirect to home
+            this._router.navigate(['/products']);
+
+        },
+        error => {
+
+          this.toastr.error(error);
+        },
+        () => {
+
+        });
+
     }
   }
 
