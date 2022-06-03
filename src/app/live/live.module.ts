@@ -6,13 +6,13 @@ import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgxPaginationModule } from "ngx-pagination";
 import { LiveListComponent } from "./live-list/live-list.component";
-import { LiveModalCreateComponent } from "./live-modal-create/live-modal-create.component";
 import { LiveRoutes } from "./live.routing";
+import { LiveModalCreateEditComponent } from './live-modal-create-edit/live-modal-create-edit.component';
 
 @NgModule({
   declarations: [
     LiveListComponent,
-    LiveModalCreateComponent
+    LiveModalCreateEditComponent
 
   ],
   imports: [
@@ -25,7 +25,7 @@ import { LiveRoutes } from "./live.routing";
     NgbModule
   ],
   entryComponents:[
-    LiveModalCreateComponent
+    LiveModalCreateEditComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

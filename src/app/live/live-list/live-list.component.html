@@ -9,7 +9,7 @@
               <h4>Cadastro de Lives</h4>
             </div>
             <div class="col-sm-6">
-              <button  class="btn btn-success" (click)="novaLive()" >Incluir Produto</button>&nbsp;
+              <button  class="btn btn-success" (click)="novaLive()" >Nova Live</button>&nbsp;
             </div>
             <table class="table">
               <thead class="text-gray">
@@ -40,16 +40,13 @@
                         Ações
                     </button>
                       <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-                        <li> <a class="dropdown-item" >&nbsp;Editar</a>
+                        <li> <a class="dropdown-item" (click)="editarLive(live)" >&nbsp;Editar</a>
                         </li>
-                        <li> <a class="dropdown-item" >&nbsp;Excluir</a>
-                        </li>
+
                       </ul>
                     </div>
-
                   </td>
-
-                  </tr>
+                </tr>
               </tbody>
           </table>
 

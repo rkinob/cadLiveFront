@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LiveService } from 'src/app/services/live.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
+import { LiveModalCreateEditComponent } from '../live-modal-create-edit/live-modal-create-edit.component';
 import { Live } from '../models/live';
 
 @Component({
@@ -20,10 +22,20 @@ export class LiveListComponent implements OnInit {
   pageSizes = [3, 6, 9];
 
   constructor(private liveService: LiveService,
-              private funcoesUtils: FuncoesUtils) { }
+              private funcoesUtils: FuncoesUtils,
+              private modalService: NgbModal) { }
 
   novaLive():void {
+    const modalRef = this.modalService.open(LiveModalCreateEditComponent, {size: 'lg' });
 
+    modalRef.result.then((data) => {
+      // on close
+      if(data) {
+        this.retrieveLive();
+      }
+    }, (reason) => {
+      // on dismiss
+    });
   }
 
   ngOnInit(): void {
@@ -58,5 +70,33 @@ export class LiveListComponent implements OnInit {
       error => {
 
       });
+  }
+
+  editarLive(live: Live): void {
+    const modalRef = this.modalService.open(LiveModalCreateEditComponent,  { size: 'lg'  });
+    modalRef.componentInstance.live = live;
+
+    modalRef.result.then((data) => {
+      // on close
+      if(data) {
+        this.retrieveLive();
+      }
+    }, (reason) => {
+      // on dismiss
+    });
+
+  }
+
+  incluirLive(): void {
+    const modalRef = this.modalService.open(LiveModalCreateEditComponent, {size: 'lg' });
+
+    modalRef.result.then((data) => {
+      // on close
+      if(data) {
+        this.retrieveLive();
+      }
+    }, (reason) => {
+      // on dismiss
+    });
   }
 }

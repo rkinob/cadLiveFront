@@ -1,4 +1,4 @@
 export class LiveStatus {
-  idStatus: string;
+  id: string;
   dsStatus: string;
 }
