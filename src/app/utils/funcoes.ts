@@ -40,6 +40,11 @@ export class FuncoesUtils {
     return valor;
   }
 
+  public paginate<Type> (array: Type[], pageSize: number, pageNumber: number): Type[] {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+  }
+
+
   errorHandler(error: HttpErrorResponse) {
     console.log(error)
     if (error.error instanceof ErrorEvent) {
