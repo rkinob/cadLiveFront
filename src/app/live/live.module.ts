@@ -8,11 +8,13 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { LiveListComponent } from "./live-list/live-list.component";
 import { LiveRoutes } from "./live.routing";
 import { LiveModalCreateEditComponent } from './live-modal-create-edit/live-modal-create-edit.component';
+import { LiveIniciarComponent } from './live-iniciar/live-iniciar.component';
 
 @NgModule({
   declarations: [
     LiveListComponent,
-    LiveModalCreateEditComponent
+    LiveModalCreateEditComponent,
+    LiveIniciarComponent
 
   ],
   imports: [

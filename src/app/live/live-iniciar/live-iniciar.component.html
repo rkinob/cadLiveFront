@@ -1,0 +1,78 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <BR>
+    <div class="list row">
+      <div class="col-md-8">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pesquisar pelo nome"
+
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+
+            >
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </div>
+      <BR>
+
+
+       <div class="col-md-8">
+
+            <div class="col-sm-6">
+              <h4>Cadastro de Produtos</h4>
+            </div>
+            <div class="col-sm-6">
+              <button  class="btn btn-success" (click)="incluirProduto()" >Incluir Produto</button>&nbsp;
+            </div>
+            <table class="table">
+              <thead class="text-gray">
+                  <tr>
+                    <th >Cód.</th>
+                    <th >Nome</th>
+                      <th>Categoria</th>
+                      <th>Preço</th>
+                    <th width="10%">Editar</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="
+                  let liveItem of live.liveItems ;
+                    let i = index"
+                    [class.active]="i == currentIndex"
+                  >
+                  <td >{{liveItem.codigo}}</td>
+                  <td width="25%">{{liveItem.nomeProduto}}</td>
+                      <td>{{liveItem.nomeCategoria}}</td>
+                      <td>{{liveItem.preco | currency:'BRL'}}</td>
+                      <td>
+                    <div ngbDropdown class="dropdown">
+                      <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1" aria-expanded="false">
+                        Ações
+                    </button>
+                      <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+
+                      </ul>
+                    </div>
+
+                  </td>
+
+                  </tr>
+              </tbody>
+          </table>
+
+
+
+
+
+       </div>
+    </div>
+  </div>
+</div>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LiveModalCreateComponent } from './live-modal-create.component';
+import { LiveIniciarComponent } from './live-iniciar.component';
 
-describe('LiveModalCreateComponent', () => {
-  let component: LiveModalCreateComponent;
-  let fixture: ComponentFixture<LiveModalCreateComponent>;
+describe('LiveIniciarComponent', () => {
+  let component: LiveIniciarComponent;
+  let fixture: ComponentFixture<LiveIniciarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LiveModalCreateComponent ]
+      declarations: [ LiveIniciarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LiveModalCreateComponent);
+    fixture = TestBed.createComponent(LiveIniciarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
