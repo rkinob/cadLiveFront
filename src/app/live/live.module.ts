@@ -9,6 +9,7 @@ import { LiveListComponent } from "./live-list/live-list.component";
 import { LiveRoutes } from "./live.routing";
 import { LiveModalCreateEditComponent } from './live-modal-create-edit/live-modal-create-edit.component';
 import { LiveIniciarComponent } from './live-iniciar/live-iniciar.component';
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LiveIniciarComponent } from './live-iniciar/live-iniciar.component';
     FormsModule,
     RouterModule.forChild(LiveRoutes),
     NgxPaginationModule,
+    NgSelectModule,
     NgbModule
   ],
   entryComponents:[

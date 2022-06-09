@@ -2,32 +2,13 @@
   <div class="container-fluid">
     <BR>
     <div class="list row">
-      <div class="col-md-8">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Pesquisar pelo nome"
 
-          />
-          <div class="input-group-append">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-
-            >
-              Pesquisar
-            </button>
-          </div>
-        </div>
-      </div>
       <BR>
-
 
        <div class="col-md-8">
 
             <div class="col-sm-6">
-              <h4>Cadastro de Produtos</h4>
+              <h4>Itens da Live</h4>
             </div>
             <div class="col-sm-6">
               <button  class="btn btn-success" (click)="incluirProduto()" >Incluir Produto</button>&nbsp;
@@ -36,9 +17,11 @@
               <thead class="text-gray">
                   <tr>
                     <th >Cód.</th>
-                    <th >Nome</th>
-                      <th>Categoria</th>
-                      <th>Preço</th>
+                    <th>Categoria</th>
+                    <th >Descrição</th>
+                    <th >Especificação</th>
+                    <th>Preço</th>
+                    <th>Cliente</th>
                     <th width="10%">Editar</th>
                   </tr>
               </thead>
@@ -49,9 +32,33 @@
                     [class.active]="i == currentIndex"
                   >
                   <td >{{liveItem.codigo}}</td>
+                  <td>{{liveItem.nomeCategoria}}</td>
                   <td width="25%">{{liveItem.nomeProduto}}</td>
-                      <td>{{liveItem.nomeCategoria}}</td>
-                      <td>{{liveItem.preco | currency:'BRL'}}</td>
+                  <td width="25%">{{liveItem.especificacao}}</td>
+                  <td>{{liveItem.preco | currency:'BRL'}}</td>
+                  <td> <!-- <select  class="form-select" (change)="atualizarCliente($event.target, liveItem)" >
+                        <option value="">Selecione</option>
+                        <option *ngFor="let cliente of clientes"
+                                [value]="cliente.id" [selected]="cliente.id == liveItem.idCliente">{{cliente.nome}}</option>
+                    </select> -->
+
+                    <ng-select [items]="clientesCombo"
+                              bindLabel="name"
+                              (change)="atualizarCliente($event, liveItem)"
+                              bindValue="id"
+                              placeholder="Selecione um cliente"
+                              [(ngModel)]="liveItem.idCliente">
+                              <ng-template ng-footer-tmp>
+                                  <div class="input-group" >
+                                    <input #cliente placeholder="Novo Cliente" class="form-control w-75" oninput="this.value = this.value.toUpperCase()" type="text" trim="blur" maxlength="100" required>
+                                      <div class="input-group-append">
+                                        <button title="Adicionar" class="btn btn-success" (click)="NovoCliente(cliente, liveItem)">+</button>
+                                      </div>
+                                    </div>
+                              </ng-template>
+                  </ng-select>
+
+                  </td>
                       <td>
                     <div ngbDropdown class="dropdown">
                       <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1" aria-expanded="false">

@@ -193,3 +193,4 @@ table.table .avatar {
 	background: #ddd;
 }
 
+@import "~@ng-select/ng-select/themes/default.theme.css";

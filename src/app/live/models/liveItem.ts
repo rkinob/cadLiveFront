@@ -7,5 +7,6 @@ export class LiveItem {
   codigo :string;
   nomeProduto: string;
   nomeCliente: string;
+  especificacao: string;
   nomeCategoria: string;
 }

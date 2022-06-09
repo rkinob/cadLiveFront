@@ -4,6 +4,7 @@ import { LiveService } from 'src/app/services/live.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { LiveModalCreateEditComponent } from '../live-modal-create-edit/live-modal-create-edit.component';
 import { Live } from '../models/live';
+import { LiveCliente } from '../models/liveCliente';
 
 @Component({
   selector: 'app-live-list',
@@ -13,6 +14,7 @@ import { Live } from '../models/live';
 export class LiveListComponent implements OnInit {
   currentLive: Live | null = null;
   lives: Live[] ;
+
   currentIndex = -1;
   productName = '';
 
@@ -40,6 +42,7 @@ export class LiveListComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveLive();
+
   }
   private paginate (array: Live[], pageSize: number, pageNumber: number) {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
