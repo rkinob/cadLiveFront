@@ -47,7 +47,7 @@
 
                     <ng-select [items]="clientesCombo"
                               bindLabel="name"
-                              (change)="atualizarCliente($event, liveItem)"
+                              (ngModelChange)="atualizarCliente($event, liveItem)"
                               bindValue="id"
                               placeholder="Selecione um cliente"
                               [(ngModel)]="liveItem.idCliente">

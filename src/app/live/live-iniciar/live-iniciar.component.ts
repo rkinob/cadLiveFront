@@ -40,6 +40,7 @@ atualizarClientes(): void {
       this.dadosLive(this.live.idLive);
 
     });
+    //this.clientesCombo = [...this.clientesCombo, {id: null, name:"Sem Cliente"}];
   });
 }
 
@@ -51,6 +52,7 @@ dadosLive(idLive: string): void {
 
 ngOnInit(): void {
    this.live = history.state;
+   console.log(this.live );
    this.atualizarClientes();
 }
 
@@ -82,19 +84,28 @@ ngOnInit(): void {
 
   }
   atualizarCliente(event: any, liveItem: LiveItem) {
+    let clienteId = null;
 
-    if(event.id) {
-      liveItem.idCliente = event.id;
-      this.liveService.atualizarCliente(liveItem).subscribe(cliente => {
-        console.log(cliente);
-        this.toastr.success("Cliente atualizado com sucesso!");
-      },
-      error => {
-        // console.log(error);
-         this.toastr.error(error);
-
-       });
+    if(event?.id)
+    {
+      clienteId = event?.id;
     }
+
+    if(liveItem.idCliente != clienteId || (clienteId == null && liveItem.idCliente != '' ) ) {
+
+        liveItem.idCliente = clienteId;
+        this.liveService.atualizarCliente(liveItem).subscribe(cliente => {
+          console.log(cliente);
+          this.toastr.success("Cliente atualizado com sucesso!");
+        },
+        error => {
+          // console.log(error);
+           this.toastr.error(error);
+
+         });
+      }
+
+
 
   }
 
@@ -104,8 +115,6 @@ ngOnInit(): void {
     if(valor) {
       valor = valor.replace('R$', '');
       valor = valor.replace(/\s/g, '');
-      console.log(valor);
-      //valor.setValue(this.currencyPipe.transform(valor, 'BRL', '', '1.2-2'));
       valor = this._funcoesUtils.parsePotentiallyGroupedFloat(valor.toString());
 
       liveItem.preco = valor;
@@ -114,9 +123,7 @@ ngOnInit(): void {
         this.toastr.success("Preço atualizado com sucesso!");
       },
       error => {
-        // console.log(error);
          this.toastr.error(error);
-
        });
     }
 
