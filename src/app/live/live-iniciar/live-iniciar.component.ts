@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LiveService } from 'src/app/services/live.service';
 import { Live } from '../models/live';
@@ -6,17 +6,25 @@ import { LiveCliente } from '../models/liveCliente';
 import { LiveItem } from '../models/liveItem';
 import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 import { LiveItemNovoCliente } from '../models/liveNovoCliente';
+import { CurrencyPipe } from '@angular/common';
+import { FuncoesUtils } from 'src/app/utils/funcoes';
 
 @Component({
   selector: 'app-live-iniciar',
   templateUrl: './live-iniciar.component.html',
-  styleUrls: ['./live-iniciar.component.css']
+  styleUrls: ['./live-iniciar.component.css'],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: "pt-BR"
+    }]
 })
 export class LiveIniciarComponent implements OnInit {
   live: Live;
   currentIndex = -1;
   clientes: LiveCliente[];
-  constructor(private liveService: LiveService, private toastr: ToastrService) { }
+  constructor(private liveService: LiveService, private toastr: ToastrService, public currencyPipe: CurrencyPipe,
+    public _funcoesUtils: FuncoesUtils) { }
   clientesCombo: any = [];
   selectedCliente: any;
 
@@ -80,6 +88,30 @@ ngOnInit(): void {
       this.liveService.atualizarCliente(liveItem).subscribe(cliente => {
         console.log(cliente);
         this.toastr.success("Cliente atualizado com sucesso!");
+      },
+      error => {
+        // console.log(error);
+         this.toastr.error(error);
+
+       });
+    }
+
+  }
+
+  atualizarPreco(event: any, liveItem: LiveItem) {
+    console.log(event.target);
+    let valor = event.target.value;
+    if(valor) {
+      valor = valor.replace('R$', '');
+      valor = valor.replace(/\s/g, '');
+      console.log(valor);
+      //valor.setValue(this.currencyPipe.transform(valor, 'BRL', '', '1.2-2'));
+      valor = this._funcoesUtils.parsePotentiallyGroupedFloat(valor.toString());
+
+      liveItem.preco = valor;
+      this.liveService.atualizarProduto(liveItem).subscribe(item => {
+        console.log(item);
+        this.toastr.success("Preço atualizado com sucesso!");
       },
       error => {
         // console.log(error);

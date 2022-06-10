@@ -49,7 +49,9 @@ export class LiveService extends BaseService  {
     return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarcliente', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
   }
 
-
+  atualizarProduto(liveItem: LiveItem): Observable<LiveItem> {
+    return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarpreco', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
+  }
   incluirClienteLive(liveItem: LiveItemNovoCliente): Observable<LiveItemNovoCliente> {
     return this.httpClient.put<LiveItemNovoCliente>(this.baseURL + '/incluirClienteLiveItem', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
   }

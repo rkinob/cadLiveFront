@@ -35,7 +35,10 @@
                   <td>{{liveItem.nomeCategoria}}</td>
                   <td width="25%">{{liveItem.nomeProduto}}</td>
                   <td width="25%">{{liveItem.especificacao}}</td>
-                  <td>{{liveItem.preco | currency:'BRL'}}</td>
+                  <td>
+                    <input placeholder="Valor de Venda" (blur)="atualizarPreco($event, liveItem)" class="form-control w-75" type="text" trim="blur" [value]="liveItem.preco | currency:'BRL'"     required>
+
+                  </td>
                   <td> <!-- <select  class="form-select" (change)="atualizarCliente($event.target, liveItem)" >
                         <option value="">Selecione</option>
                         <option *ngFor="let cliente of clientes"
