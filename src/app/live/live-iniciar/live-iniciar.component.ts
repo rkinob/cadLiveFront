@@ -8,6 +8,7 @@ import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 import { LiveItemNovoCliente } from '../models/liveNovoCliente';
 import { CurrencyPipe } from '@angular/common';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-live-iniciar',
@@ -23,10 +24,20 @@ export class LiveIniciarComponent implements OnInit {
   live: Live;
   currentIndex = -1;
   clientes: LiveCliente[];
-  constructor(private liveService: LiveService, private toastr: ToastrService, public currencyPipe: CurrencyPipe,
-    public _funcoesUtils: FuncoesUtils) { }
+  constructor(private liveService: LiveService,
+              private toastr: ToastrService,
+              public currencyPipe: CurrencyPipe,
+              public _funcoesUtils: FuncoesUtils,
+              private route: ActivatedRoute) { }
   clientesCombo: any = [];
   selectedCliente: any;
+
+  ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.live = data['live'];
+      this.atualizarClientes();
+    });
+ }
 
 
 atualizarClientes(): void {
@@ -50,11 +61,6 @@ dadosLive(idLive: string): void {
   });
 }
 
-ngOnInit(): void {
-   this.live = history.state;
-   console.log(this.live );
-   this.atualizarClientes();
-}
 
   NovoCliente(cliente: any, liveItem: LiveItem ): void {
     //console.log(cliente);

@@ -42,7 +42,7 @@
                       <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
                         <li> <a class="dropdown-item" (click)="editarLive(live)" >&nbsp;Alterar Dados</a>
                         </li>
-                        <li> <a class="dropdown-item" [routerLink]="['/live/itens']" [state]="live" >&nbsp;Ver Itens</a>
+                        <li> <a class="dropdown-item" [routerLink]="['/live/itens', live.idLive]">&nbsp;Ver Itens</a>
                         </li>
                       </ul>
                     </div>
