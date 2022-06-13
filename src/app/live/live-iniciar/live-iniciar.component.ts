@@ -9,6 +9,8 @@ import { LiveItemNovoCliente } from '../models/liveNovoCliente';
 import { CurrencyPipe } from '@angular/common';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { ActivatedRoute } from '@angular/router';
+import { LiveIncluirProdutoComponent } from '../live-incluir-produto/live-incluir-produto.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-live-iniciar',
@@ -28,7 +30,8 @@ export class LiveIniciarComponent implements OnInit {
               private toastr: ToastrService,
               public currencyPipe: CurrencyPipe,
               public _funcoesUtils: FuncoesUtils,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private modalService: NgbModal) { }
   clientesCombo: any = [];
   selectedCliente: any;
 
@@ -87,7 +90,17 @@ dadosLive(idLive: string): void {
 
   }
   incluirProduto() {
-
+    const modalRef = this.modalService.open(LiveIncluirProdutoComponent, {size: 'lg' });
+    modalRef.componentInstance.idLive = this.live.idLive;
+    modalRef.result.then((data) => {
+      // on close
+      if(data) {
+        this.dadosLive(this.live.idLive);
+      }
+    }, (reason) => {
+      // on dismiss
+      console.log(reason)
+    });
   }
   atualizarCliente(event: any, liveItem: LiveItem) {
     let clienteId = null;

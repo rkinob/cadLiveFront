@@ -6,6 +6,7 @@ import { Live } from "../live/models/live";
 import { LiveCliente } from "../live/models/liveCliente";
 import { LiveItem } from "../live/models/liveItem";
 import { LiveItemNovoCliente } from "../live/models/liveNovoCliente";
+import { LiveNovoProduto } from "../live/models/liveNovoProduto";
 import { LiveStatus } from "../live/models/liveStatus";
 import { BaseService } from "./base.service";
 
@@ -54,6 +55,10 @@ export class LiveService extends BaseService  {
   }
   incluirClienteLive(liveItem: LiveItemNovoCliente): Observable<LiveItemNovoCliente> {
     return this.httpClient.put<LiveItemNovoCliente>(this.baseURL + '/incluirClienteLiveItem', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
+  }
+
+  incluirProdutoLive(liveItem: LiveNovoProduto): Observable<LiveNovoProduto> {
+    return this.httpClient.post<LiveNovoProduto>(this.baseURL + '/incluirProduto', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
   }
 
 

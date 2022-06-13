@@ -10,12 +10,15 @@ import { LiveRoutes } from "./live.routing";
 import { LiveModalCreateEditComponent } from './live-modal-create-edit/live-modal-create-edit.component';
 import { LiveIniciarComponent } from './live-iniciar/live-iniciar.component';
 import { NgSelectModule } from "@ng-select/ng-select";
+import { LiveIncluirProdutoComponent } from './live-incluir-produto/live-incluir-produto.component';
+import { LiveIniciarResolver } from "./resolvers/live-iniciar.resolver";
 
 @NgModule({
   declarations: [
     LiveListComponent,
     LiveModalCreateEditComponent,
-    LiveIniciarComponent
+    LiveIniciarComponent,
+    LiveIncluirProdutoComponent
 
   ],
   imports: [
@@ -29,7 +32,8 @@ import { NgSelectModule } from "@ng-select/ng-select";
     NgbModule
   ],
   entryComponents:[
-    LiveModalCreateEditComponent
+    LiveModalCreateEditComponent,
+    LiveIncluirProdutoComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -38,7 +42,8 @@ import { NgSelectModule } from "@ng-select/ng-select";
      {
         provide: LOCALE_ID,
         useValue: "pt-BR"
-    }
+    },
+    LiveIniciarResolver
 
   ]
 })
