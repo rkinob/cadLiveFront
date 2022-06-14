@@ -14,6 +14,7 @@ import { UsuarioService } from './services/usuario.service';
 import { LiveModule } from './live/live.module';
 import { CurrencyFormatterDirective } from './shared/currency-formatter.directive';
 
+
 registerLocaleData(localePt, 'pt');
 
 @NgModule({

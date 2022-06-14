@@ -6,6 +6,7 @@ import { PaginatedList } from '../models/paginated-list';
 import { BaseService } from './base.service';
 import { BaseResponse } from '../product/models/base-response';
 import { catchError } from 'rxjs/operators';
+import { Category } from '../product/models/categoria';
 
 
 
@@ -33,7 +34,7 @@ export class ProdutoService extends BaseService  {
     return this.httpClient.get(`${this.baseURL}/${id}`, this.ObterAuthHeaderJson());
   }
 
-  create(product: Produto): Observable<any> {
+  create(product: Produto): Observable<Produto> {
     return this.httpClient.post<Produto>(this.baseURL + '/incluir', JSON.stringify(product), this.ObterAuthHeaderJson())
     .pipe(catchError(this.errorHandler));
   }
@@ -49,5 +50,15 @@ export class ProdutoService extends BaseService  {
   searchByName(params: any, name: string): Observable<any> {
     return this.httpClient.get<any>(this.baseURL + '/ListarProdutosPorDescricao/' + name, this.ObterAuthHeaderJson());
   }
+
+  createCategoria(categoria: Category): Observable<Category> {
+    return this.httpClient.post<Category>(this.baseURLCat + '/incluir', JSON.stringify(categoria), this.ObterAuthHeaderJson())
+    .pipe(catchError(this.errorHandler));
+  }
+
+  updateCategoria(categoria: Category): Observable<Category> {
+    return this.httpClient.put<Category>(this.baseURLCat + '/alterar', JSON.stringify(categoria), this.ObterAuthHeaderJson());
+  }
+
 }
 

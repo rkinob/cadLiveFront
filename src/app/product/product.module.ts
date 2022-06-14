@@ -11,13 +11,17 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ProdutoModalCreateEditComponent } from './product-modal-create-edit/product-modal-create-edit.component';
 
 import {LOCALE_ID} from '@angular/core';
+import { CategoriaListaComponent } from "./categoria/categoria-lista/categoria-lista.component";
+import { CategoriaModalCreateEditComponent } from "./categoria/categoria-modal-create-edit/categoria-modal-create-edit.component";
 
 
 @NgModule({
   declarations: [
     ProdutoDetailsComponent,
     ProdutoListComponent,
-    ProdutoModalCreateEditComponent
+    ProdutoModalCreateEditComponent,
+    CategoriaListaComponent,
+    CategoriaModalCreateEditComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,8 @@ import {LOCALE_ID} from '@angular/core';
     NgbModule
   ],
   entryComponents:[
-    ProdutoModalCreateEditComponent
+    ProdutoModalCreateEditComponent,
+    CategoriaModalCreateEditComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

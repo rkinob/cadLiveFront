@@ -1,4 +1,5 @@
 export class Category {
-  id!: number;
-  descricao!: string
+  id!: string;
+  descricao!: string;
+  codigo: string;
 }
