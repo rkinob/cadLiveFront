@@ -5,15 +5,10 @@ const path = require('path');
 const app = express();
 
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/lojagi-app'));
+app.use(express.static('./dist/'));
 
-/*
-app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/lojagi-app/'}),
-);
-*/
-app.get('*', (req, res) => {
-  res.sendFile(`./dist/lojagi-app/index.html`); // load the single view file (angular will handle the page changes on the front-end)
+app.get('/*', (req, res) => {
+  res.sendFile('index.html', { root: 'dist/' });
 });
 
 
