@@ -30,8 +30,7 @@ export class UsuarioService extends BaseService {
 
     return this.http.post<LoginResponse>(url , body, this.ObterHeaderJson())
         .pipe(
-            catchError(this.errorHandler),
-            retry(4)
+            catchError(this.errorHandler)
         );
   }
 

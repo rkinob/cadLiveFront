@@ -24,7 +24,9 @@ export class LiveService extends BaseService  {
   }
 
   BuscarTodosClientes(): Observable<LiveCliente[]> {
-    return this.httpClient.get<LiveCliente[]>(this.baseURLCliente + '/BuscarTodos', this.ObterAuthHeaderJson());
+    return this.httpClient.get<LiveCliente[]>(this.baseURLCliente + '/BuscarTodos', this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler)
+  );;
   }
 
   BuscarTodosStatus(): Observable<LiveStatus[]> {
@@ -43,22 +45,32 @@ export class LiveService extends BaseService  {
   }
 
   update(live: Live): Observable<Live> {
-    return this.httpClient.put<Live>(this.baseURL + '/alterar', JSON.stringify(live), this.ObterAuthHeaderJson());
+    return this.httpClient.put<Live>(this.baseURL + '/alterar', JSON.stringify(live), this.ObterAuthHeaderJson()).pipe(
+            catchError(this.errorHandler)
+        );
   }
 
   atualizarCliente(liveItem: LiveItem): Observable<LiveItem> {
-    return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarcliente', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
+    return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarcliente', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler)
+  );
   }
 
   atualizarProduto(liveItem: LiveItem): Observable<LiveItem> {
-    return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarpreco', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
+    return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarpreco', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler)
+  );;
   }
   incluirClienteLive(liveItem: LiveItemNovoCliente): Observable<LiveItemNovoCliente> {
-    return this.httpClient.put<LiveItemNovoCliente>(this.baseURL + '/incluirClienteLiveItem', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
+    return this.httpClient.put<LiveItemNovoCliente>(this.baseURL + '/incluirClienteLiveItem', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler)
+  );;
   }
 
   incluirProdutoLive(liveItem: LiveNovoProduto): Observable<LiveNovoProduto> {
-    return this.httpClient.post<LiveNovoProduto>(this.baseURL + '/incluirProduto', JSON.stringify(liveItem), this.ObterAuthHeaderJson());
+    return this.httpClient.post<LiveNovoProduto>(this.baseURL + '/incluirProduto', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler)
+  );;
   }
 
 
