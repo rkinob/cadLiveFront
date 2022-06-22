@@ -42,6 +42,24 @@ export class LiveIniciarComponent implements OnInit {
     });
  }
 
+ inativarItem(liveItem: LiveItem): void {
+
+  if(confirm("Tem certeza de que deseja excluir?")) {
+    this.liveService.inativarItem(liveItem).subscribe(cli => {
+      if(cli) {
+        this.atualizarClientes();
+        this.toastr.success("item inativado com sucesso!");
+      }
+
+    },
+    error => {
+      // console.log(error);
+      this.toastr.error(error);
+
+    });
+  }
+
+ }
 
 atualizarClientes(): void {
   this.liveService.BuscarTodosClientes().subscribe(cliente =>  {

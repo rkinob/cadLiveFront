@@ -52,22 +52,26 @@ export class LiveService extends BaseService  {
 
   atualizarCliente(liveItem: LiveItem): Observable<LiveItem> {
     return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarcliente', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
-      catchError(this.errorHandler)
-  );
+      catchError(this.errorHandler));
+  }
+
+  inativarItem(liveItem: LiveItem): Observable<LiveItem> {
+    return this.httpClient.put<LiveItem>(this.baseURL + '/inativaritem', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler));
   }
 
   atualizarProduto(liveItem: LiveItem): Observable<LiveItem> {
     return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarpreco', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
-      catchError(this.errorHandler)
-  );;
+      catchError(this.errorHandler));
   }
+
   incluirClienteLive(liveItem: LiveItemNovoCliente): Observable<LiveItemNovoCliente> {
     return this.httpClient.put<LiveItemNovoCliente>(this.baseURL + '/incluirClienteLiveItem', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
-      catchError(this.errorHandler)
-  );;
+      catchError(this.errorHandler));
   }
 
   incluirProdutoLive(liveItem: LiveNovoProduto): Observable<LiveNovoProduto> {
+    console.log(liveItem);
     return this.httpClient.post<LiveNovoProduto>(this.baseURL + '/incluirProduto', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
       catchError(this.errorHandler)
   );;
