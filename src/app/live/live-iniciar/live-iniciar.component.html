@@ -1,9 +1,25 @@
 <div class="main-content">
   <div class="container-fluid">
     <BR>
+
+      <div class="list row">
+        <BR>
+         <div class="col-md-8">
+              <div class="col-sm-6">
+                <h4 (click)="showResumo = !showResumo">Resumo da Live <span *ngIf="!showResumo">+</span>
+                  <span *ngIf="showResumo">-</span>
+
+
+                </h4>
+              </div>
+        <app-live-resumo *ngIf="showResumo" [idLive]=live.idLive > </app-live-resumo>
+     </div>
+
+
     <div class="list row">
 
       <BR>
+
 
        <div class="col-md-8">
 

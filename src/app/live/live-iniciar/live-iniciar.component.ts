@@ -11,6 +11,7 @@ import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { ActivatedRoute } from '@angular/router';
 import { LiveIncluirProdutoComponent } from '../live-incluir-produto/live-incluir-produto.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ResumoLiveService } from 'src/app/services/resumolive.service';
 
 @Component({
   selector: 'app-live-iniciar',
@@ -25,13 +26,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class LiveIniciarComponent implements OnInit {
   live: Live;
   currentIndex = -1;
+  showResumo: boolean = false;
   clientes: LiveCliente[];
   constructor(private liveService: LiveService,
               private toastr: ToastrService,
               public currencyPipe: CurrencyPipe,
               public _funcoesUtils: FuncoesUtils,
               private route: ActivatedRoute,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private resumoLiveService: ResumoLiveService) { }
   clientesCombo: any = [];
   selectedCliente: any;
 
@@ -39,6 +42,7 @@ export class LiveIniciarComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.live = data['live'];
       this.atualizarClientes();
+      this.resumoLiveService.carregarRelatorio.next(true);
     });
  }
 
@@ -79,6 +83,7 @@ atualizarClientes(): void {
 dadosLive(idLive: string): void {
   this.liveService.ConsultarLive(idLive).subscribe(live => {
     this.live = live;
+    this.resumoLiveService.carregarRelatorio.next(true);
   });
 }
 
@@ -127,12 +132,15 @@ dadosLive(idLive: string): void {
     {
       clienteId = event?.id;
     }
-
+    else if(event) {
+      clienteId = event;
+    }
+    //console.log(event);
     if(liveItem.idCliente != clienteId || (clienteId == null && liveItem.idCliente != '' ) ) {
 
         liveItem.idCliente = clienteId;
         this.liveService.atualizarCliente(liveItem).subscribe(cliente => {
-          console.log(cliente);
+          this.resumoLiveService.carregarRelatorio.next(true);
           this.toastr.success("Cliente atualizado com sucesso!");
         },
         error => {
@@ -156,7 +164,7 @@ dadosLive(idLive: string): void {
 
       liveItem.preco = valor;
       this.liveService.atualizarProduto(liveItem).subscribe(item => {
-        console.log(item);
+        this.resumoLiveService.carregarRelatorio.next(true);
         this.toastr.success("Preço atualizado com sucesso!");
       },
       error => {

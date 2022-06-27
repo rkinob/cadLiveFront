@@ -25,18 +25,20 @@ export class LiveService extends BaseService  {
 
   BuscarTodosClientes(): Observable<LiveCliente[]> {
     return this.httpClient.get<LiveCliente[]>(this.baseURLCliente + '/BuscarTodos', this.ObterAuthHeaderJson()).pipe(
-      catchError(this.errorHandler)
-  );;
-  }
+      catchError(this.errorHandler));
+}
 
   BuscarTodosStatus(): Observable<LiveStatus[]> {
-    return this.httpClient.get<LiveStatus[]>(this.baseURL + '/ListarStatus', this.ObterAuthHeaderJson());
+    return this.httpClient.get<LiveStatus[]>(this.baseURL + '/ListarStatus', this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler));
   }
   BuscarTodas(): Observable<Live[]> {
-    return this.httpClient.get<Live[]>(this.baseURL + '/BuscarTodas', this.ObterAuthHeaderJson());
+    return this.httpClient.get<Live[]>(this.baseURL + '/BuscarTodas', this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler));
   }
   ConsultarLive(idLive: string): Observable<Live> {
-    return this.httpClient.get<Live>(this.baseURL + '/BuscarPorId/' + idLive, this.ObterAuthHeaderJson());
+    return this.httpClient.get<Live>(this.baseURL + '/BuscarPorId/' + idLive, this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler));
   }
 
   create(live: Live): Observable<Live> {

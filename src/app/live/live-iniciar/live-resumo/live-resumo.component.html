@@ -1,0 +1,53 @@
+
+
+
+
+<table class="table" *ngIf="relatorioPorCategoria">
+  <thead class="text-gray">
+    <tr>
+      <th colspan="3" >Vendas por Categoria</th>
+    </tr>
+    <tr>
+        <th >Categoria</th>
+        <th>Quantidade</th>
+        <th >Valor</th>
+
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="
+      let relCategoria of relatorioPorCategoria ;
+        let i = index"
+        [class.active]="i == currentIndex"
+      >
+      <td >{{relCategoria.nomeCategoria}}</td>
+      <td width="25%">{{relCategoria.quantidade}}</td>
+      <td width="25%">{{relCategoria.valorTotal | currency:'BRL'}}</td>
+
+      </tr>
+  </tbody>
+</table>
+<BR>
+  <table class="table" *ngIf="rankingClientes">
+    <thead class="text-gray">
+      <tr>
+        <th colspan="3" >Ranking por Cliente</th>
+      </tr>
+      <tr>
+          <th >Cliente</th>
+          <th >Valor</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="
+        let relCliente of rankingClientes ;
+          let i = index"
+          [class.active]="i == currentIndex"
+        >
+        <td >{{relCliente.nomeCliente}}</td>
+        <td width="25%">{{relCliente.valorTotal | currency:'BRL'}}</td>
+
+        </tr>
+    </tbody>
+  </table>
