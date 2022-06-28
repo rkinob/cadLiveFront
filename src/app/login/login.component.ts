@@ -10,6 +10,7 @@ import { sessionStorageUtils } from '../utils/sessionStorage';
 import { ToastrService } from 'ngx-toastr';
 import { BaseResponse } from '../product/models/base-response';
 import { Usuario } from '../models/usuario';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
               private _fb: FormBuilder,
               private _usuarioService: UsuarioService,
               private _sessionStorageUtils: sessionStorageUtils,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
 
@@ -61,6 +63,7 @@ export class LoginComponent implements OnInit {
   public entrar() {
     console.log(this.formLogin.valid);
     if (this.formLogin.valid) {
+      this.spinner.show();
       this._usuarioService.verificarUsuario(this.login.value, this.senha.value).subscribe(
         next => {
 
@@ -71,7 +74,7 @@ export class LoginComponent implements OnInit {
             this._sessionStorageUtils.salvarTokenUsuario(token);
 
             // redirect to home
-            this._router.navigate(['/products']);
+            this._router.navigate(['/lives']);
 
         },
         error => {
@@ -79,7 +82,7 @@ export class LoginComponent implements OnInit {
           this.toastr.error(error);
         },
         () => {
-
+          this.spinner.hide();
         });
 
     }

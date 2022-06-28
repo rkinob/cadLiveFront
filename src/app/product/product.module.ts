@@ -13,6 +13,7 @@ import { ProdutoModalCreateEditComponent } from './product-modal-create-edit/pro
 import {LOCALE_ID} from '@angular/core';
 import { CategoriaListaComponent } from "./categoria/categoria-lista/categoria-lista.component";
 import { CategoriaModalCreateEditComponent } from "./categoria/categoria-modal-create-edit/categoria-modal-create-edit.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CategoriaModalCreateEditComponent } from "./categoria/categoria-modal-c
     FormsModule,
     RouterModule.forChild(ProdutoRoutes),
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule
   ],
   entryComponents:[
     ProdutoModalCreateEditComponent,

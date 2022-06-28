@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ProdutoService } from 'src/app/services/product.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
@@ -22,7 +23,8 @@ export class CategoriaModalCreateEditComponent implements OnInit {
               private produtoService: ProdutoService,
               private toastr: ToastrService,
               public _funcoesUtils: FuncoesUtils,
-              public currencyPipe: CurrencyPipe) {}
+              public currencyPipe: CurrencyPipe,
+              private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.carregarForm(this.categoria);
@@ -85,7 +87,7 @@ export class CategoriaModalCreateEditComponent implements OnInit {
   }
 
   public addCategory(categoria: Category) {
-
+    this.spinner.show();
     this.produtoService.createCategoria(categoria)
       .subscribe(
         next => {
@@ -98,18 +100,30 @@ export class CategoriaModalCreateEditComponent implements OnInit {
          // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
+        },
+        () => {
+          this.spinner.hide();
         }
 
       );
   }
 
   public updateCategory(categoria: Category) {
+    this.spinner.show();
     this.produtoService.updateCategoria( categoria)
       .subscribe(
         next => {
           console.log(next);
           this.toastr.success("Categoria alterado com sucesso!");
           this.activeModal.close(true);
+        },
+        error => {
+         // console.log(error);
+          this.toastr.error(error);
+          this.activeModal.close(false);
+        },
+        () => {
+          this.spinner.hide();
         }
       );
   }

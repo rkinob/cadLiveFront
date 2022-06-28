@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/product/models/categoria';
 import { LiveService } from 'src/app/services/live.service';
@@ -26,7 +27,8 @@ export class LiveIncluirProdutoComponent implements OnInit {
               private liveService: LiveService,
               private toastr: ToastrService,
               public _funcoesUtils: FuncoesUtils,
-              public currencyPipe: CurrencyPipe) {}
+              public currencyPipe: CurrencyPipe,
+              private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.carregarCategories();
@@ -99,14 +101,10 @@ export class LiveIncluirProdutoComponent implements OnInit {
       product.preco = this._funcoesUtils.parsePotentiallyGroupedFloat(product.preco.toString());
       product.precoCusto = this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
       product.idLive = this.idLive;
-      /*if (this.product?.id) {
-        this.updateProduto(product);
-      }
 
-      else {*/
-        product.ativo = 1;
-        this.addProduto(product);
-      //}
+
+      product.ativo = 1;
+      this.addProduto(product);
 
 
 
@@ -115,7 +113,7 @@ export class LiveIncluirProdutoComponent implements OnInit {
   }
 
   public addProduto(product: LiveNovoProduto) {
-
+    this.spinner.show();
     this.liveService.incluirProdutoLive(product)
       .subscribe(
         next => {
@@ -128,6 +126,9 @@ export class LiveIncluirProdutoComponent implements OnInit {
          // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
+        },
+        () => {
+          this.spinner.hide();
         }
 
       );

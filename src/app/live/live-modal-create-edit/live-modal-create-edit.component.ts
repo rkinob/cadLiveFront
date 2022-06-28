@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { LiveService } from 'src/app/services/live.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
@@ -23,7 +24,8 @@ export class LiveModalCreateEditComponent implements OnInit {
               private liveService: LiveService,
               private toastr: ToastrService,
               public _funcoesUtils: FuncoesUtils,
-              public currencyPipe: CurrencyPipe) {}
+              public currencyPipe: CurrencyPipe,
+              private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.carregarStatus();
@@ -90,7 +92,7 @@ export class LiveModalCreateEditComponent implements OnInit {
   }
 
   public addLive(live: Live) {
-
+    this.spinner.show();
     this.liveService.create(live)
       .subscribe(
         next => {
@@ -103,18 +105,30 @@ export class LiveModalCreateEditComponent implements OnInit {
          // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
+        },
+        () => {
+          this.spinner.hide();
         }
 
       );
   }
 
   public updateLive(live: Live) {
+    this.spinner.show();
     this.liveService.update( live)
       .subscribe(
         next => {
           console.log(next);
           this.toastr.success("Live alterado com sucesso!");
           this.activeModal.close(true);
+        },
+        error => {
+         // console.log(error);
+          this.toastr.error(error);
+          this.activeModal.close(false);
+        },
+        () => {
+          this.spinner.hide();
         }
       );
   }

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LiveIncluirProdutoComponent } from '../live-incluir-produto/live-incluir-produto.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResumoLiveService } from 'src/app/services/resumolive.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-live-iniciar',
@@ -34,7 +35,8 @@ export class LiveIniciarComponent implements OnInit {
               public _funcoesUtils: FuncoesUtils,
               private route: ActivatedRoute,
               private modalService: NgbModal,
-              private resumoLiveService: ResumoLiveService) { }
+              private resumoLiveService: ResumoLiveService,
+              private spinner: NgxSpinnerService) { }
   clientesCombo: any = [];
   selectedCliente: any;
 
@@ -66,6 +68,7 @@ export class LiveIniciarComponent implements OnInit {
  }
 
 atualizarClientes(): void {
+
   this.liveService.BuscarTodosClientes().subscribe(cliente =>  {
     //this.clientes = cliente;
     this.clientesCombo = [];
@@ -90,8 +93,9 @@ dadosLive(idLive: string): void {
 
   NovoCliente(cliente: any, liveItem: LiveItem ): void {
     //console.log(cliente);
-    if(cliente.value != '') {
 
+    if(cliente.value != '') {
+      this.spinner.show();
       let liveItemNovoCliente = new LiveItemNovoCliente();
       liveItemNovoCliente.idLive = liveItem.idLive;
       liveItemNovoCliente.idLiveItem = liveItem.idLiveItem;
@@ -107,7 +111,8 @@ dadosLive(idLive: string): void {
         // console.log(error);
          this.toastr.error(error);
 
-       });
+       },
+       () => { this.spinner.hide(); });
     }
 
 
@@ -115,6 +120,7 @@ dadosLive(idLive: string): void {
   incluirProduto() {
     const modalRef = this.modalService.open(LiveIncluirProdutoComponent, {size: 'lg' });
     modalRef.componentInstance.idLive = this.live.idLive;
+
     modalRef.result.then((data) => {
       // on close
       if(data) {
@@ -137,7 +143,7 @@ dadosLive(idLive: string): void {
     }
     //console.log(event);
     if(liveItem.idCliente != clienteId || (clienteId == null && liveItem.idCliente != '' ) ) {
-
+      this.spinner.show();
         liveItem.idCliente = clienteId;
         this.liveService.atualizarCliente(liveItem).subscribe(cliente => {
           this.resumoLiveService.carregarRelatorio.next(true);
@@ -147,7 +153,8 @@ dadosLive(idLive: string): void {
           // console.log(error);
            this.toastr.error(error);
 
-         });
+         },
+         () => { this.spinner.hide(); });
       }
 
 
@@ -161,7 +168,7 @@ dadosLive(idLive: string): void {
       valor = valor.replace('R$', '');
       valor = valor.replace(/\s/g, '');
       valor = this._funcoesUtils.parsePotentiallyGroupedFloat(valor.toString());
-
+      this.spinner.show();
       liveItem.preco = valor;
       this.liveService.atualizarProduto(liveItem).subscribe(item => {
         this.resumoLiveService.carregarRelatorio.next(true);
@@ -169,7 +176,8 @@ dadosLive(idLive: string): void {
       },
       error => {
          this.toastr.error(error);
-       });
+       },
+       () => { this.spinner.hide(); });
     }
 
   }

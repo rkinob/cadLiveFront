@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsuarioService } from './services/usuario.service';
 import { LiveModule } from './live/live.module';
 import { CurrencyFormatterDirective } from './shared/currency-formatter.directive';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 registerLocaleData(localePt, 'pt');
 
@@ -30,11 +30,14 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     ProdutoModule,
     LiveModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [
     UsuarioService
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { LiveService } from 'src/app/services/live.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { LiveModalCreateEditComponent } from '../live-modal-create-edit/live-modal-create-edit.component';
@@ -25,7 +26,8 @@ export class LiveListComponent implements OnInit {
 
   constructor(private liveService: LiveService,
               private funcoesUtils: FuncoesUtils,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private spinner: NgxSpinnerService) { }
 
   novaLive():void {
     const modalRef = this.modalService.open(LiveModalCreateEditComponent, {size: 'lg' });
@@ -61,6 +63,7 @@ export class LiveListComponent implements OnInit {
 
   retrieveLive(): void {
    // const params = this.getRequestParams(this.productName, this.page, this.pageSize);
+    this.spinner.show();
 
     this.liveService.BuscarTodas()
     .subscribe(
@@ -72,6 +75,9 @@ export class LiveListComponent implements OnInit {
       },
       error => {
 
+      },
+      () => {
+        this.spinner.hide();
       });
   }
 

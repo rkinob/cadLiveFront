@@ -13,6 +13,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { LiveIncluirProdutoComponent } from './live-incluir-produto/live-incluir-produto.component';
 import { LiveIniciarResolver } from "./resolvers/live-iniciar.resolver";
 import { LiveResumoComponent } from './live-iniciar/live-resumo/live-resumo.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LiveResumoComponent } from './live-iniciar/live-resumo/live-resumo.comp
     RouterModule.forChild(LiveRoutes),
     NgxPaginationModule,
     NgSelectModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule
   ],
   entryComponents:[
     LiveModalCreateEditComponent,
