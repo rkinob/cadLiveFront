@@ -60,5 +60,9 @@ export class ProdutoService extends BaseService  {
     return this.httpClient.put<Category>(this.baseURLCat + '/alterar', JSON.stringify(categoria), this.ObterAuthHeaderJson());
   }
 
+  inativarCategoria(categoria: Category): Observable<Category> {
+    return this.httpClient.put<Category>(this.baseURLCat + '/inativar', JSON.stringify(categoria), this.ObterAuthHeaderJson());
+  }
+
 }
 

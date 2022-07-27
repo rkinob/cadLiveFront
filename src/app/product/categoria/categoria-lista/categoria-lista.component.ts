@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/product/models/categoria';
 import { ProdutoService } from 'src/app/services/product.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
@@ -26,7 +27,8 @@ export class CategoriaListaComponent implements OnInit {
   constructor(private produtoService: ProdutoService,
               private funcoesUtils: FuncoesUtils,
               private modalService: NgbModal,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService,
+              private toastr: ToastrService) { }
 
   novaCategory():void {
     const modalRef = this.modalService.open(CategoriaModalCreateEditComponent, {size: 'lg' });
@@ -79,6 +81,22 @@ export class CategoriaListaComponent implements OnInit {
       });
   }
   excluirCategory(categoria: Category): void {
+    if(confirm("Tem certeza de que deseja excluir?")) {
+      this.produtoService.inativarCategoria(categoria)
+    .subscribe(
+      response => {
+        // = response;
+        this.retrieveCategory();
+        this.toastr.success("Categoria excluída com sucesso!");
+      },
+      error => {
+        this.toastr.error(error);
+      },
+      () => {
+        this.spinner.hide()
+      });
+    }
+
   }
 
   editarCategory(categoria: Category): void {
