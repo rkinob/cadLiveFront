@@ -37,6 +37,7 @@
                     <th >Descrição</th>
                     <th >Especificação</th>
                     <th>Preço</th>
+                    <th>Valor Pago</th>
                     <th>Cliente</th>
                     <th width="10%">Editar</th>
                   </tr>
@@ -52,7 +53,11 @@
                   <td width="25%">{{liveItem.nomeProduto}}</td>
                   <td width="25%">{{liveItem.especificacao}}</td>
                   <td >
-                    <input placeholder="Valor de Venda" (blur)="atualizarPreco($event, liveItem)" class="form-control-sm" type="text" trim="blur" [value]="liveItem.preco | currency:'BRL'"     required>
+                    <input placeholder="Valor de Venda" (blur)="atualizarPreco($event, liveItem)" class="form-control-sm" type="text" trim="blur" [value]="liveItem.preco | currency:'BRL'"  required>
+
+                  </td>
+                  <td >
+                    <input placeholder="Valor Pago pelo Cliente" (blur)="atualizarValorPago($event, liveItem)" class="form-control-sm" type="text" trim="blur" [value]="liveItem.valorPago | currency:'BRL'"  required>
 
                   </td>
                   <td> <!-- <select  class="form-select" (change)="atualizarCliente($event.target, liveItem)" >

@@ -48,7 +48,6 @@ export class LiveIncluirProdutoComponent implements OnInit {
     especificacao: ['', [Validators.required]],
     ativo: [''],
     categoriaId: ['',  [Validators.required]],
-    precoCusto: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
     preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
 
   });
@@ -60,7 +59,6 @@ export class LiveIncluirProdutoComponent implements OnInit {
   public ativo = this.formProduto.controls.ativo;
   public categoriaId = this.formProduto.controls.categoriaId;
   public preco = this.formProduto.controls.preco;
-  public precoCusto = this.formProduto.controls.precoCusto;
 
   public carregarForm(product: LiveNovoProduto) {
 
@@ -72,7 +70,7 @@ export class LiveIncluirProdutoComponent implements OnInit {
       this.ativo.setValue(product.ativo);
       this.categoriaId.setValue(product.categoria.id);
       this.preco.setValue(this.currencyPipe.transform(product.preco, 'BRL', '', '1.2-2'));
-      this.precoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
+     // this.precoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
 
       this.titulo_modal = "Editar Produto";
     }
@@ -99,7 +97,7 @@ export class LiveIncluirProdutoComponent implements OnInit {
 
       let product = this.formProduto.value;
       product.preco = this._funcoesUtils.parsePotentiallyGroupedFloat(product.preco.toString());
-      product.precoCusto = this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
+      product.precoCusto = 0;///this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
       product.idLive = this.idLive;
 
 

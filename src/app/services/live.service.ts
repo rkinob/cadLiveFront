@@ -67,6 +67,11 @@ export class LiveService extends BaseService  {
       catchError(this.errorHandler));
   }
 
+  atualizarValorPago(liveItem: LiveItem): Observable<LiveItem> {
+    return this.httpClient.put<LiveItem>(this.baseURL + '/atualizarValorPago', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler));
+  }
+
   incluirClienteLive(liveItem: LiveItemNovoCliente): Observable<LiveItemNovoCliente> {
     return this.httpClient.put<LiveItemNovoCliente>(this.baseURL + '/incluirClienteLiveItem', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
       catchError(this.errorHandler));

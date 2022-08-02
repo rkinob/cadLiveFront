@@ -4,6 +4,7 @@ export class LiveItem {
   idCliente: string;
   idProduto: string;
   preco: number;
+  valorPago: number;
   codigo :string;
   nomeProduto: string;
   nomeCliente: string;

@@ -175,6 +175,29 @@ dadosLive(idLive: string): void {
         this.toastr.success("Preço atualizado com sucesso!");
       },
       error => {
+        this.spinner.hide();
+         this.toastr.error(error);
+       },
+       () => { this.spinner.hide(); });
+    }
+
+  }
+
+  atualizarValorPago(event: any, liveItem: LiveItem) {
+    console.log(event.target);
+    let valor = event.target.value;
+    if(valor) {
+      valor = valor.replace('R$', '');
+      valor = valor.replace(/\s/g, '');
+      valor = this._funcoesUtils.parsePotentiallyGroupedFloat(valor.toString());
+      this.spinner.show();
+      liveItem.valorPago = valor;
+      this.liveService.atualizarValorPago(liveItem).subscribe(item => {
+        this.resumoLiveService.carregarRelatorio.next(true);
+        this.toastr.success("Valor Pago atualizado com sucesso!");
+      },
+      error => {
+        this.spinner.hide();
          this.toastr.error(error);
        },
        () => { this.spinner.hide(); });
