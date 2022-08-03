@@ -13,7 +13,16 @@ export class FuncoesUtils {
 
   constructor(private currencyPipe : CurrencyPipe){}
 
-
+  public keyPressNumbers(event: any): boolean {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   public numberCheck (args: any): boolean {
    if (args.key === 'e' || args.key === '+' || args.key === '-' ) {
