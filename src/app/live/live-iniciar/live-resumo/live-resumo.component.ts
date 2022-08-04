@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ResumoLiveService } from 'src/app/services/resumolive.service';
 import { RankingClientesLive } from '../../models/rankingClientesLive';
 import { RelatorioPorCategoria } from '../../models/relatorioPorCategoria';
@@ -8,22 +9,28 @@ import { RelatorioPorCategoria } from '../../models/relatorioPorCategoria';
   templateUrl: './live-resumo.component.html',
   styleUrls: ['./live-resumo.component.css']
 })
-export class LiveResumoComponent implements OnInit {
+export class LiveResumoComponent implements OnInit, OnDestroy {
 
   relatorioPorCategoria: RelatorioPorCategoria[];
   rankingClientes: RankingClientesLive[];
   @Input() idLive: string;
   currentIndex: number;
+  subCarregarRelatorio: Subscription;
+
   constructor(private resumoLiveService: ResumoLiveService) { }
 
+  ngOnDestroy(): void {
+    this.subCarregarRelatorio.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.resumoLiveService.carregarRelatorio.subscribe(a => {
+    this.subCarregarRelatorio = this.resumoLiveService.carregarRelatorio.subscribe(a => {
       if(a) {
         this.obterRelatorioCategoria();
         this.obterRankingClientes();
       }
     });
-    //this.resumoLiveService.
+
   }
 
   obterRelatorioCategoria(): void {

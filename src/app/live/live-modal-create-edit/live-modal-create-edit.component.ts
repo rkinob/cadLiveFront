@@ -29,7 +29,6 @@ export class LiveModalCreateEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarStatus();
-    console.log(this.live);
     this.carregarForm(this.live);
   }
 
@@ -53,7 +52,6 @@ export class LiveModalCreateEditComponent implements OnInit {
       this.idLive.setValue(live.idLive);
       this.idStatus.setValue(live.idStatus);
       this.titulo.setValue(live.titulo);
-
       this.titulo_modal = "Editar Live";
     }
     else {
@@ -63,17 +61,13 @@ export class LiveModalCreateEditComponent implements OnInit {
 
   }
 
-
   private formValido() {
-
     if (!this.formLive.valid)
       return false;
-
     return true
   }
 
   public salvar(): void {
-
     if (this.formValido()) {
       if (this.live?.idLive)
         this.idLive.setValue(this.live.idLive);
@@ -83,7 +77,6 @@ export class LiveModalCreateEditComponent implements OnInit {
       if (this.live?.idLive) {
         this.updateLive(live);
       }
-
       else {
         live.ativo = 1;
         this.addLive(live);
@@ -96,13 +89,11 @@ export class LiveModalCreateEditComponent implements OnInit {
     this.liveService.create(live)
       .subscribe(
         next => {
-          console.log(next);
           this.toastr.success("Live incluído com sucesso!");
           this.activeModal.close(true);
 
         },
         error => {
-         // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
         },
@@ -118,12 +109,10 @@ export class LiveModalCreateEditComponent implements OnInit {
     this.liveService.update( live)
       .subscribe(
         next => {
-          console.log(next);
           this.toastr.success("Live alterado com sucesso!");
           this.activeModal.close(true);
         },
         error => {
-         // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
         },

@@ -70,8 +70,6 @@ export class LiveIncluirProdutoComponent implements OnInit {
       this.ativo.setValue(product.ativo);
       this.categoriaId.setValue(product.categoria.id);
       this.preco.setValue(this.currencyPipe.transform(product.preco, 'BRL', '', '1.2-2'));
-     // this.precoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
-
       this.titulo_modal = "Editar Produto";
     }
     else {
@@ -100,11 +98,8 @@ export class LiveIncluirProdutoComponent implements OnInit {
       product.precoCusto = 0;///this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
       product.idLive = this.idLive;
 
-
       product.ativo = 1;
       this.addProduto(product);
-
-
 
     }
 
@@ -115,13 +110,10 @@ export class LiveIncluirProdutoComponent implements OnInit {
     this.liveService.incluirProdutoLive(product)
       .subscribe(
         next => {
-          console.log(next);
           this.toastr.success("Produto incluído na live com sucesso!");
           this.activeModal.close(true);
-
         },
         error => {
-         // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
         },

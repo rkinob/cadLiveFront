@@ -59,7 +59,6 @@ export class LiveIniciarComponent implements OnInit {
 
     },
     error => {
-      // console.log(error);
       this.toastr.error(error);
 
     });
@@ -68,18 +67,14 @@ export class LiveIniciarComponent implements OnInit {
  }
 
 atualizarClientes(): void {
-
   this.liveService.BuscarTodosClientes().subscribe(cliente =>  {
-    //this.clientes = cliente;
     this.clientesCombo = [];
     cliente.forEach(cli => {
-      //this.clientesCombo.push({id: cli.id, name: cli.nome});
       this.clientesCombo = [...this.clientesCombo, {id: cli.id, name: cli.nome}];
       this.selectedCliente =  {id: cli.id, name: cli.nome};
       this.dadosLive(this.live.idLive);
 
     });
-    //this.clientesCombo = [...this.clientesCombo, {id: null, name:"Sem Cliente"}];
   });
 }
 
@@ -92,7 +87,6 @@ dadosLive(idLive: string): void {
 
 
   NovoCliente(cliente: any, liveItem: LiveItem ): void {
-    //console.log(cliente);
 
     if(cliente.value != '') {
       this.spinner.show();
@@ -108,8 +102,7 @@ dadosLive(idLive: string): void {
 
       },
       error => {
-        // console.log(error);
-         this.toastr.error(error);
+        this.toastr.error(error);
 
        },
        () => { this.spinner.hide(); });
@@ -141,7 +134,7 @@ dadosLive(idLive: string): void {
     else if(event) {
       clienteId = event;
     }
-    //console.log(event);
+
     if(liveItem.idCliente != clienteId || (clienteId == null && liveItem.idCliente != '' ) ) {
       this.spinner.show();
         liveItem.idCliente = clienteId;
@@ -156,13 +149,9 @@ dadosLive(idLive: string): void {
          },
          () => { this.spinner.hide(); });
       }
-
-
-
   }
 
   atualizarPreco(event: any, liveItem: LiveItem) {
-    console.log(event.target);
     let valor = event.target.value;
     if(valor) {
       valor = valor.replace('R$', '');
@@ -184,7 +173,6 @@ dadosLive(idLive: string): void {
   }
 
   atualizarValorPago(event: any, liveItem: LiveItem) {
-    console.log(event.target);
     let valor = event.target.value;
     if(valor) {
       valor = valor.replace('R$', '');

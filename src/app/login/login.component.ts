@@ -34,8 +34,6 @@ export class LoginComponent implements OnInit {
               private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-
-
   }
 
   public getErrorMessageLogin() {
@@ -61,24 +59,17 @@ export class LoginComponent implements OnInit {
 
 
   public entrar() {
-    console.log(this.formLogin.valid);
     if (this.formLogin.valid) {
       this.spinner.show();
       this._usuarioService.verificarUsuario(this.login.value, this.senha.value).subscribe(
         next => {
+          const token = next.token;
+          this._sessionStorageUtils.salvarTokenUsuario(token);
 
-          //if (!loginRequest.ValidationSummary) {
-            const token = next.token;
-            //const decoded = jwt_decode<Usuario>(token);
-           // const data: UsuarioRequest = decoded.Data;   ;
-            this._sessionStorageUtils.salvarTokenUsuario(token);
-
-            // redirect to home
-            this._router.navigate(['/lives']);
+          this._router.navigate(['/lives']);
 
         },
         error => {
-          console.log(error);
           this.toastr.error(error);
         },
         () => {

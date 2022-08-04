@@ -16,7 +16,7 @@ import { Category } from '../../models/categoria';
 export class CategoriaModalCreateEditComponent implements OnInit {
 
   @Input() categoria: Category;
-  titulo_modal: string = 'Editar Category';
+  titulo_modal: string = 'Editar Categoria';
 
   constructor(public activeModal: NgbActiveModal,
               private _fb: FormBuilder,
@@ -29,8 +29,6 @@ export class CategoriaModalCreateEditComponent implements OnInit {
   ngOnInit(): void {
     this.carregarForm(this.categoria);
   }
-
-
 
   formCategory = this._fb.group({
     id: [''],
@@ -60,10 +58,8 @@ export class CategoriaModalCreateEditComponent implements OnInit {
 
 
   private formValido() {
-
     if (!this.formCategory.valid)
       return false;
-
     return true
   }
 
@@ -78,7 +74,6 @@ export class CategoriaModalCreateEditComponent implements OnInit {
       if (this.categoria?.id) {
         this.updateCategory(categoria);
       }
-
       else {
         categoria.ativo = 1;
         this.addCategory(categoria);
@@ -91,13 +86,10 @@ export class CategoriaModalCreateEditComponent implements OnInit {
     this.produtoService.createCategoria(categoria)
       .subscribe(
         next => {
-          console.log(next);
           this.toastr.success("Categoria incluído com sucesso!");
           this.activeModal.close(true);
-
         },
         error => {
-         // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
         },
@@ -118,7 +110,6 @@ export class CategoriaModalCreateEditComponent implements OnInit {
           this.activeModal.close(true);
         },
         error => {
-         // console.log(error);
           this.toastr.error(error);
           this.activeModal.close(false);
         },

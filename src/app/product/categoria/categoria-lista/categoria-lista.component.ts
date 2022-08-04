@@ -34,7 +34,6 @@ export class CategoriaListaComponent implements OnInit {
     const modalRef = this.modalService.open(CategoriaModalCreateEditComponent, {size: 'lg' });
 
     modalRef.result.then((data) => {
-      // on close
       if(data) {
         this.retrieveCategory();
       }
@@ -63,12 +62,10 @@ export class CategoriaListaComponent implements OnInit {
   }
 
   retrieveCategory(): void {
-   // const params = this.getRequestParams(this.productName, this.page, this.pageSize);
     this.spinner.show();
     this.produtoService.readAllCategories()
     .subscribe(
       response => {
-        // = response;
         this.categorias = this.funcoesUtils.paginate(response, this.pageSize,  this.page) ;
         this.count = response.length;
 
@@ -85,7 +82,6 @@ export class CategoriaListaComponent implements OnInit {
       this.produtoService.inativarCategoria(categoria)
     .subscribe(
       response => {
-        // = response;
         this.retrieveCategory();
         this.toastr.success("Categoria excluída com sucesso!");
       },
@@ -118,7 +114,6 @@ export class CategoriaListaComponent implements OnInit {
     const modalRef = this.modalService.open(CategoriaModalCreateEditComponent, {size: 'lg' });
 
     modalRef.result.then((data) => {
-      // on close
       if(data) {
         this.retrieveCategory();
       }
