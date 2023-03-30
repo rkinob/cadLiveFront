@@ -9,7 +9,6 @@ import { throwError } from "rxjs";
 })
 
 export abstract class BaseService {
-    //protected urlServiceV1: string = `http://localhost:81/VaciVida/`;
     protected urlServiceV1: string = environment.apiUrlv1;
     protected sessionStorageUtils = new sessionStorageUtils();
 
