@@ -41,4 +41,4 @@ jobs:
         with:
           node-version: '12.x'
       - run: npm install -g surge
-      - run: surge ./deploy_dist/lojagi ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+      - run: surge ./deploy_dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
