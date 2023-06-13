@@ -13,6 +13,8 @@ import { LiveIncluirProdutoComponent } from '../live-incluir-produto/live-inclui
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResumoLiveService } from 'src/app/services/resumolive.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ExcelService } from 'src/app/services/excel.service';
+import { LiveItemExcel } from '../models/liveItemExcel';
 
 @Component({
   selector: 'app-live-iniciar',
@@ -36,7 +38,9 @@ export class LiveIniciarComponent implements OnInit {
               private route: ActivatedRoute,
               private modalService: NgbModal,
               private resumoLiveService: ResumoLiveService,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService,
+              private _excelService: ExcelService
+              ) { }
   clientesCombo: any = [];
   selectedCliente: any;
 
@@ -109,6 +113,25 @@ dadosLive(idLive: string): void {
     }
 
 
+  }
+
+  exportarExcel() {
+    let itensArr: LiveItemExcel[] = [] ;
+
+    this.live.liveItems.forEach(item => {
+      itensArr.push(new LiveItemExcel({
+        codigo: item.codigo,
+        categoria: item.nomeCategoria,
+        descricao: item.nomeProduto,
+        especificacao: item.especificacao,
+        nomeCliente: item.nomeCliente,
+        preco: item.preco,
+        valorPago: item.valorPago
+      }));
+
+    });
+
+    this._excelService.exportAsExcelFile(JSON.parse(JSON.stringify(itensArr)), "" )
   }
   incluirProduto() {
     const modalRef = this.modalService.open(LiveIncluirProdutoComponent, {size: 'lg' });

@@ -26,8 +26,10 @@
               <h4>Itens da Live</h4>
             </div>
             <div class="col-sm-6">
+
               <button  class="btn btn-success" (click)="incluirProduto()" >Incluir Produto</button>&nbsp;
               <button  class="btn btn-success" [routerLink]="['/lives']"  >Voltar</button>&nbsp;
+              <button  class="btn btn-success" (click)="exportarExcel()" >Exportar Excel</button>&nbsp;
             </div>
             <table class="table">
               <thead class="text-gray">

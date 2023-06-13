@@ -14,6 +14,7 @@ import { UsuarioService } from './services/usuario.service';
 import { LiveModule } from './live/live.module';
 import { CurrencyFormatterDirective } from './shared/currency-formatter.directive';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ExcelService } from './services/excel.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -34,7 +35,8 @@ registerLocaleData(localePt, 'pt');
     NgxSpinnerModule
   ],
   providers: [
-    UsuarioService
+    UsuarioService,
+    ExcelService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
