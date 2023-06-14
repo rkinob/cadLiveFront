@@ -41,4 +41,4 @@ jobs:
         with:
           node-version: '12.x'
       - run: npm install -g surge
-      - run: surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+      - run: surge ./CadLiveFront/dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
