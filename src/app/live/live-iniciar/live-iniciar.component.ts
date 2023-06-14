@@ -15,6 +15,8 @@ import { ResumoLiveService } from 'src/app/services/resumolive.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ExcelService } from 'src/app/services/excel.service';
 import { LiveItemExcel } from '../models/liveItemExcel';
+import { RelatorioPorCategoria } from '../models/relatorioPorCategoria';
+import { RankingClientesLive } from '../models/rankingClientesLive';
 
 @Component({
   selector: 'app-live-iniciar',
@@ -31,6 +33,9 @@ export class LiveIniciarComponent implements OnInit {
   currentIndex = -1;
   showResumo: boolean = false;
   clientes: LiveCliente[];
+  relatorioPorCategoria: RelatorioPorCategoria[];
+  rankingClientes: RankingClientesLive[];
+
   constructor(private liveService: LiveService,
               private toastr: ToastrService,
               public currencyPipe: CurrencyPipe,
@@ -50,6 +55,8 @@ export class LiveIniciarComponent implements OnInit {
       this.atualizarClientes();
       this.resumoLiveService.carregarRelatorio.next(true);
     });
+    this.resumoLiveService.rankingClientesBs.subscribe(a => this.rankingClientes = a );
+    this.resumoLiveService.relatorioPorCategoriaBs.subscribe(a => this.relatorioPorCategoria = a );
  }
 
  inativarItem(liveItem: LiveItem): void {
@@ -115,6 +122,15 @@ dadosLive(idLive: string): void {
 
   }
 
+  exportarRankingCliente() {
+
+    this._excelService.exportAsExcelFile(JSON.parse(JSON.stringify(this.rankingClientes)), "" );
+  }
+
+  exportarRankingCategoria() {
+
+    this._excelService.exportAsExcelFile(JSON.parse(JSON.stringify(this.relatorioPorCategoria)), "" );
+  }
   exportarExcel() {
     let itensArr: LiveItemExcel[] = [] ;
 

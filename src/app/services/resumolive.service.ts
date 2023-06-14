@@ -13,7 +13,9 @@ import { BaseService } from "./base.service";
 export class ResumoLiveService extends BaseService  {
   private baseURL = this.urlServiceV1 + 'api/Relatorios';
   public carregarRelatorio: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+//  public carregarRelatorio: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public relatorioPorCategoriaBs: BehaviorSubject<RelatorioPorCategoria[]> = new BehaviorSubject<RelatorioPorCategoria[]>([]);
+  public rankingClientesBs: BehaviorSubject<RankingClientesLive[]> = new BehaviorSubject<RankingClientesLive[]>([]);
 
   constructor(private httpClient: HttpClient) {
     super();

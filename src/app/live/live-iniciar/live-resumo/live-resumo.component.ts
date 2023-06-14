@@ -28,17 +28,19 @@ export class LiveResumoComponent implements OnInit, OnDestroy {
       if(a) {
         this.obterRelatorioCategoria();
         this.obterRankingClientes();
+
+
       }
     });
 
   }
 
   obterRelatorioCategoria(): void {
-    this.resumoLiveService.RelatorioPorCategoria(this.idLive).subscribe(rel => this.relatorioPorCategoria = rel);
+    this.resumoLiveService.RelatorioPorCategoria(this.idLive).subscribe(rel => {this.relatorioPorCategoria = rel; this.resumoLiveService.relatorioPorCategoriaBs.next(this.relatorioPorCategoria); });
   }
 
   obterRankingClientes(): void {
-    this.resumoLiveService.RankingClientesLive(this.idLive).subscribe(rel => this.rankingClientes = rel);
+    this.resumoLiveService.RankingClientesLive(this.idLive).subscribe(  rel => {this.rankingClientes = rel ; this.resumoLiveService.rankingClientesBs.next(this.rankingClientes); });
   }
 
 }
