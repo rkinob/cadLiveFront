@@ -36,6 +36,9 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: lojagi
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: lojagiSite
       - name: Install surge and fire deployment
         uses: actions/setup-node@v1
         with:
