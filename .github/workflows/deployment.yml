@@ -38,7 +38,6 @@ jobs:
           name: lojagi
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: lojagiSite
       - name: Install surge and fire deployment
         uses: actions/setup-node@v1
         with:
