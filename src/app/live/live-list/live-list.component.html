@@ -32,7 +32,7 @@
                     let i = index"
                     [class.active]="i == currentIndex"
                   >
-                  <td>{{live.dtInclusao}}</td>
+                  <td>{{live.dtInclusao | date: "dd/MM/yyyy"}}</td>
                   <td width="25%">{{live.titulo}}</td>
                       <td>{{live.dsStatus}}</td>
 
