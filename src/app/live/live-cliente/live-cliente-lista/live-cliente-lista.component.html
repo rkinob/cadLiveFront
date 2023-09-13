@@ -1,0 +1,74 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#fff" type="ball-circus" [fullScreen] = "true"></ngx-spinner>
+
+<div class="main-content">
+  <div class="container-fluid">
+    <BR>
+        <div class="list row">
+
+          <div class="col-md-8">
+
+            <div class="col-sm-6">
+              <h4>Cadastro de Clientes</h4>
+            </div>
+            <div class="col-sm-6">
+              <button  class="btn btn-success" (click)="incluirLiveCliente()" >Novo Cliente</button>&nbsp;
+            </div>
+            <table class="table">
+              <thead class="text-gray">
+                  <tr>
+                    <th>Descrição</th>
+                    <th width="10%">Editar</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="
+                  let livecliente of LiveClientes | paginate : {
+                          itemsPerPage: pageSize,
+                          currentPage: page,
+                          totalItems: count
+                        };
+                    let i = index"
+                    [class.active]="i == currentIndex"
+                  >
+                  <td width="100%">{{livecliente.nome}}</td>
+
+
+                      <td>
+                    <div ngbDropdown class="dropdown">
+                      <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1" aria-expanded="false">
+                        Ações
+                    </button>
+                      <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+                        <li> <a class="dropdown-item" (click)="editarLiveCliente(livecliente)" >&nbsp;Alterar</a>
+
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+
+
+          <div class="col-md-12">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              [responsive]="true"
+              (pageChange)="handlePageChange($event)"
+            ></pagination-controls>
+          </div>
+
+          <div class="mt-3">
+
+
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>

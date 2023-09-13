@@ -23,6 +23,17 @@ export class LiveService extends BaseService  {
     super();
   }
 
+  addCliente(cliente: LiveCliente): Observable<LiveCliente> {
+    return this.httpClient.post<LiveCliente>(this.baseURLCliente + '/incluir', JSON.stringify(cliente), this.ObterAuthHeaderJson())
+    .pipe(catchError(this.errorHandler));
+  }
+
+  updateCliente(cliente: LiveCliente): Observable<LiveCliente> {
+    return this.httpClient.put<LiveCliente>(this.baseURLCliente + '/atualizar', JSON.stringify(cliente), this.ObterAuthHeaderJson()).pipe(
+            catchError(this.errorHandler)
+        );
+  }
+
   BuscarTodosClientes(): Observable<LiveCliente[]> {
     return this.httpClient.get<LiveCliente[]>(this.baseURLCliente + '/BuscarTodos', this.ObterAuthHeaderJson()).pipe(
       catchError(this.errorHandler));

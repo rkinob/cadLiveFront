@@ -14,6 +14,8 @@ import { LiveIncluirProdutoComponent } from './live-incluir-produto/live-incluir
 import { LiveIniciarResolver } from "./resolvers/live-iniciar.resolver";
 import { LiveResumoComponent } from './live-iniciar/live-resumo/live-resumo.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { LiveClienteListaComponent } from './live-cliente/live-cliente-lista/live-cliente-lista.component';
+import { LiveClienteModalCreateEditComponent } from './live-cliente/live-cliente-modal-create-edit/live-cliente-modal-create-edit.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     LiveModalCreateEditComponent,
     LiveIniciarComponent,
     LiveIncluirProdutoComponent,
-    LiveResumoComponent
+    LiveResumoComponent,
+    LiveClienteListaComponent,
+    LiveClienteModalCreateEditComponent
 
   ],
   imports: [
