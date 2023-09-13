@@ -68,6 +68,11 @@ export class LiveService extends BaseService  {
       catchError(this.errorHandler));
   }
 
+  inativarLiveCliente(livecliente: LiveCliente): Observable<LiveCliente> {
+    return this.httpClient.delete<LiveCliente>(this.baseURLCliente + '/inativar/' + livecliente.id,  this.ObterAuthHeaderJson()).pipe(
+      catchError(this.errorHandler));
+  }
+
   inativarItem(liveItem: LiveItem): Observable<LiveItem> {
     return this.httpClient.put<LiveItem>(this.baseURL + '/inativaritem', JSON.stringify(liveItem), this.ObterAuthHeaderJson()).pipe(
       catchError(this.errorHandler));

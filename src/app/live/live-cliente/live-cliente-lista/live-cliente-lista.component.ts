@@ -78,14 +78,14 @@ export class LiveClienteListaComponent implements OnInit {
         this.spinner.hide()
       });
   }
-  /*
+
   excluirLiveCliente(LiveCliente: LiveCliente): void {
     if(confirm("Tem certeza de que deseja excluir?")) {
       this.clienteService.inativarLiveCliente(LiveCliente)
     .subscribe(
       response => {
         this.retrieveLiveCliente();
-        this.toastr.success("LiveCliente excluída com sucesso!");
+        this.toastr.success("Cliente excluído com sucesso!");
       },
       error => {
         this.toastr.error(error);
@@ -95,7 +95,7 @@ export class LiveClienteListaComponent implements OnInit {
       });
     }
 
-  }*/
+  }
 
   editarLiveCliente(cliente: LiveCliente): void {
     const modalRef = this.modalService.open(LiveClienteModalCreateEditComponent,  { size: 'lg'  });
