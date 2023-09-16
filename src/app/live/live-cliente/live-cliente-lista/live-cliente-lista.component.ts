@@ -22,8 +22,8 @@ export class LiveClienteListaComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 3;
-  pageSizes = [3, 6, 9];
+  pageSize = 10;
+  pageSizes = [10, 20, 40];
 
   constructor(private clienteService: LiveService,
               private funcoesUtils: FuncoesUtils,
