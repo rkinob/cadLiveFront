@@ -43,4 +43,4 @@ jobs:
         with:
           node-version: '12.x'
       - run: npm install -g surge
-      - run: surge lojagi/lojaGiFront/dist/lojaGiFront ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+      - run: surge lojagi/dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
