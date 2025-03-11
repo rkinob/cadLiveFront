@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Use Node 12.x
         uses: actions/setup-node@v1
         with:
@@ -31,7 +31,7 @@ jobs:
     needs: build
     name: Deploying to surge
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download build
         uses: actions/download-artifact@v2
         with:
