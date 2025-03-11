@@ -18,5 +18,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: 'cadlivefront' # e.g. 'my-project'
-          directory: 'dist' # e.g. 'dist'
+          directory: '/dist' # e.g. 'dist'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
