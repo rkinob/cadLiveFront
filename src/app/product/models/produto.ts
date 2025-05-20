@@ -10,5 +10,6 @@ export class Produto {
   categoria: Category;
   preco: number;
   precoCusto: number;
+  produtoPaiId: string;
 
 }

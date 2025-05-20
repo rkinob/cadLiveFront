@@ -50,9 +50,14 @@
 </div>
 <br>
   </div>
+  <div class="modal-footer" *ngIf="idProduto.value">
+              <button  type="button"  class="btn btn-success" (click)="incluirProdutoVinculado()" >Incluir Produto Vinculado</button>&nbsp;
+            </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fechar</button>
     <input type="submit" class="btn btn-success" value="Salvar" [disabled]="!formProduto.valid">
   </div>
 </form>
 
+<app-produtos-vinculados *ngIf="!idProdutoPai && showProductList" [idProdutoPai]=idProduto.value ></app-produtos-vinculados>

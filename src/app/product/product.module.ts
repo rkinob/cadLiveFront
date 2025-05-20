@@ -14,6 +14,7 @@ import {LOCALE_ID} from '@angular/core';
 import { CategoriaListaComponent } from "./categoria/categoria-lista/categoria-lista.component";
 import { CategoriaModalCreateEditComponent } from "./categoria/categoria-modal-create-edit/categoria-modal-create-edit.component";
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ProdutosVinculadosComponent } from './produtos-vinculados/produtos-vinculados.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ProdutoListComponent,
     ProdutoModalCreateEditComponent,
     CategoriaListaComponent,
-    CategoriaModalCreateEditComponent
+    CategoriaModalCreateEditComponent,
+    ProdutosVinculadosComponent
   ],
   imports: [
     CommonModule,

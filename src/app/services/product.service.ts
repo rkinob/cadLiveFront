@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Produto } from '../product/models/produto';
 import { PaginatedList } from '../models/paginated-list';
 import { BaseService } from './base.service';
@@ -16,6 +16,7 @@ import { Category } from '../product/models/categoria';
 export class ProdutoService extends BaseService  {
   private baseURL = this.urlServiceV1 + 'api/Produto';
   private baseURLCat = this.urlServiceV1 + 'api/Categoria';
+public idProdutoPai: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor(private httpClient: HttpClient) {
     super();
@@ -50,7 +51,9 @@ export class ProdutoService extends BaseService  {
   searchByName(params: any, name: string): Observable<any> {
     return this.httpClient.get<any>(this.baseURL + '/ListarProdutosPorDescricao/' + name, this.ObterAuthHeaderJson());
   }
-
+ searchByProdutoPai(produtoPaiId: string): Observable<any> {
+    return this.httpClient.get<any>(this.baseURL + '/ListarProdutosVinculados/' + produtoPaiId, this.ObterAuthHeaderJson());
+  }
   createCategoria(categoria: Category): Observable<Category> {
     return this.httpClient.post<Category>(this.baseURLCat + '/incluir', JSON.stringify(categoria), this.ObterAuthHeaderJson())
     .pipe(catchError(this.errorHandler));

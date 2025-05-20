@@ -4,7 +4,7 @@
 
 export const environment = {
   appVersion: require('package.json').version,
-  apiUrlv1: "https://localhost:7246/",
+  apiUrlv1: "https://localhost:44381/",
   production: false
 };
 

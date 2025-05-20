@@ -1,25 +1,9 @@
-<div class="main-content">
+<div class="main-content" *ngIf="carregou">
   <div class="container-fluid">
     <BR>
     <div class="list row">
       <div class="col-md-8">
-        <div class="input-group mb-3" *ngIf="!idProdutoPai">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Pesquisar pelo nome"
-            [(ngModel)]="productName"
-          />
-          <div class="input-group-append">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              (click)="searchProduto()"
-            >
-              Pesquisar
-            </button>
-          </div>
-        </div>
+
       </div>
       <BR>
 
@@ -27,11 +11,9 @@
        <div class="col-md-8">
 
             <div class="col-sm-6">
-              <h4>Cadastro de Produtos</h4>
+              <h4> Produtos Vinculados</h4>
             </div>
-            <div class="col-sm-6">
-              <button *ngIf="!idProdutoPai"  class="btn btn-success" (click)="incluirProduto()" >Incluir Produto</button>&nbsp;
-            </div>
+
             <table    class="table">
               <thead class="text-gray">
                   <tr>
@@ -44,13 +26,9 @@
                     <th width="10%">Editar</th>
                   </tr>
               </thead>
-              <tbody *ngIf="carregou">
+              <tbody >
                   <tr *ngFor="
-                  let product of products | paginate : {
-                          itemsPerPage: pageSize,
-                          currentPage: page,
-                          totalItems: count
-                        };
+                  let product of products ;
                     let i = index"
                     [class.active]="i == currentIndex"
                   >
@@ -80,25 +58,6 @@
           </table>
 
 
-          <div *ngIf="carregou" class="col-md-12">
-            <pagination-controls
-              previousLabel="Prev"
-              nextLabel="Next"
-              [responsive]="true"
-              (pageChange)="handlePageChange($event)"
-            ></pagination-controls>
-          </div>
-
-          <div class="mt-3" *ngIf="carregou">
-
-
-            Items per Page:
-            <select (change)="handlePageSizeChange($event)">
-              <option *ngFor="let size of pageSizes" [ngValue]="size">
-                {{ size }}
-              </option>
-            </select>
-          </div>
        </div>
     </div>
   </div>

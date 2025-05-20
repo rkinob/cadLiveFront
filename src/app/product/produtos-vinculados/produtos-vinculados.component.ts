@@ -1,3 +1,5 @@
+
+
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -9,11 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-produtos-vinculados',
+  templateUrl: './produtos-vinculados.component.html',
+  styleUrls: ['./produtos-vinculados.component.css']
 })
-export class ProdutoListComponent implements OnInit {
+export class ProdutosVinculadosComponent implements OnInit {
 
   currentProduto: Produto | null = null;
   products: Produto[] ;
@@ -49,19 +51,6 @@ carregou = false;
 
   }
 
-  incluirProduto(): void {
-    const modalRef = this.modalService.open(ProdutoModalCreateEditComponent, {size: 'lg' });
-
-    modalRef.result.then((data) => {
-      // on close
-      if(data) {
-        this.retrieveProdutos();
-      }
-    }, (reason) => {
-      // on dismiss
-    });
-  }
-
   ngAfterViewInit() {
   setTimeout(() => this.retrieveProdutos());
 }
@@ -69,16 +58,6 @@ carregou = false;
 
   ngOnInit(): void {
     this.carregou = false;
-  // console.log(this.carregou);
-   //his.retrieveProdutos();
-
-/*
-    this.sub = this.route
-      .data
-      .subscribe(v => { this.idProdutoPai = "";}
-
-    );*/
-
 
   }
 
@@ -97,54 +76,20 @@ carregou = false;
     });
 
   }
-  getRequestParams(searchName: string, page: number, pageSize: number): any {
-    let params: any = {};
-
-    if (searchName) {
-      params[`Name`] = searchName;
-    }
-
-    if (page) {
-      params[`PageNumber`] = page ;
-    }
-
-    if (pageSize) {
-      params[`PageSize`] = pageSize;
-    }
-
-    return params;
-  }
-
-  private paginate (array: Produto[], pageSize: number, pageNumber: number) {
-    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
-  }
 
 
   retrieveProdutos(): void {
-  const params = this.getRequestParams(this.productName, this.page, this.pageSize);
-  let obsService;
-
-  if (this.idProdutoPai) {
-    obsService = this.productService.searchByProdutoPai(this.idProdutoPai);
-  } else {
-    obsService = this.productService.searchByName(params, this.productName);
-  }
 
   // Redefine produtos e count antes de iniciar a requisição
   this.products = [];
-  this.count = 0;
-  this.carregou = false;
 
-  obsService.subscribe({
+
+  this.productService.searchByProdutoPai(this.idProdutoPai).subscribe({
     next: (response) => {
       // Atrasamos a atualização para depois da detecção de mudanças
       setTimeout(() => {
-        this.count = response.length;
-        console.log(this.pageSize);
-        console.log(this.page);
-
-        this.products = this.paginate(response, this.pageSize, this.page);
-        this.carregou = true;
+        this.products = response;
+        this.carregou = this.products.length > 0;
       });
     },
     error: (err) => {
@@ -153,23 +98,6 @@ carregou = false;
   });
 }
 
-  handlePageChange(event: number): void {
-    this.page = event;
-    this.retrieveProdutos();
-  }
-
-  handlePageSizeChange(event: any): void {
-    this.pageSize = event.target.value;
-    this.page = 1;
-    this.retrieveProdutos();
-  }
-
-
-
-  searchProduto(): void {
-    this.page = 1;
-    this.retrieveProdutos();
-  }
 
 
 }

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProdutoService } from 'src/app/services/product.service';
 import { Category } from '../models/categoria';
 import { Produto } from '../models/produto';
@@ -26,12 +26,15 @@ export class ProdutoModalCreateEditComponent implements OnInit {
   @Input() product: Produto;
   titulo_modal: string = 'Editar Produto';
   categories: Category[] = [];
+  @Input() idProdutoPai: string;
   constructor(public activeModal: NgbActiveModal,
               private _fb: FormBuilder,
               private productService: ProdutoService,
               private toastr: ToastrService,
               public _funcoesUtils: FuncoesUtils,
-              public currencyPipe: CurrencyPipe) {}
+              private modalService: NgbModal,
+              public currencyPipe: CurrencyPipe,
+            private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.carregarCategories();
@@ -54,6 +57,7 @@ export class ProdutoModalCreateEditComponent implements OnInit {
     categoriaId: ['',  [Validators.required]],
     precoCusto: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
     preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
+    produtoPaiId: ['']
 
   });
 
@@ -65,6 +69,7 @@ export class ProdutoModalCreateEditComponent implements OnInit {
   public categoriaId = this.formProduto.controls.categoriaId;
   public preco = this.formProduto.controls.preco;
   public precoCusto = this.formProduto.controls.precoCusto;
+  public produtoPaiId = this.formProduto.controls.produtoPaiId;
 
   public carregarForm(product: Produto) {
 
@@ -77,7 +82,7 @@ export class ProdutoModalCreateEditComponent implements OnInit {
       this.categoriaId.setValue(product.categoria.id);
       this.preco.setValue(this.currencyPipe.transform(product.preco, 'BRL', '', '1.2-2'));
       this.precoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
-
+      this.produtoPaiId.setValue(product.produtoPaiId);
       this.titulo_modal = "Editar Produto";
     }
     else {
@@ -93,6 +98,28 @@ export class ProdutoModalCreateEditComponent implements OnInit {
       return false;
 
     return true
+  }
+  showProductList = false;
+
+ngAfterViewInit() {
+  setTimeout(() => {
+    this.showProductList = true;
+    this.cd.detectChanges();
+  });
+}
+
+  incluirProdutoVinculado(): void {
+    this.activeModal.close(true);
+    const modalRef = this.modalService.open(ProdutoModalCreateEditComponent, {size: 'lg' });
+    modalRef.componentInstance.idProdutoPai = this.product.id ;
+
+    modalRef.result.then((data) => {
+      // on close
+
+
+    }, (reason) => {
+      // on dismiss
+    });
   }
 
   public salvar(): void {
@@ -111,6 +138,8 @@ export class ProdutoModalCreateEditComponent implements OnInit {
 
       else {
         product.ativo = 1;
+        product.produtoPaiId = this.idProdutoPai;
+        console.log(product);
         this.addProduto(product);
       }
 

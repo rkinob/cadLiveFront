@@ -7,7 +7,7 @@ import { ProdutoModalCreateEditComponent } from "./product-modal-create-edit/pro
 
 export const ProdutoRoutes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
-  { path: 'products', component: ProdutoListComponent , canActivate: [AuthGuard]},
+  { path: 'products', component: ProdutoListComponent , canActivate: [AuthGuard], data: {limparProdutos: true}},
   { path: 'products/:id', component: ProdutoDetailsComponent, canActivate: [AuthGuard] },
   { path: 'create', component: ProdutoModalCreateEditComponent, canActivate: [AuthGuard] },
   { path: 'categorias', component: CategoriaListaComponent , canActivate: [AuthGuard]},
