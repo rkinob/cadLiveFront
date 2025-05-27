@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           this.toastr.error(error);
+          this.spinner.hide();
         },
         () => {
           this.spinner.hide();
