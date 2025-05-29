@@ -64,10 +64,10 @@ export class LiveIncluirProdutoComponent implements OnInit {
   public preco = this.formProduto.controls.preco;
 
   public pesquisarProduto( codigo: string) {
-    console.log(this.produtos);
-    console.log(codigo);
+   // console.log(this.produtos);
+   // console.log(codigo);
     let produtosEncontrados = this.produtos.filter(p => p.codigo == codigo );
-    console.log(produtosEncontrados);
+   // console.log(produtosEncontrados);
     if(produtosEncontrados.length > 0) {
       this.product = new LiveNovoProduto ();
 
