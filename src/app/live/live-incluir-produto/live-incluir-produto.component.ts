@@ -10,6 +10,7 @@ import { ProdutoService } from 'src/app/services/product.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { Live } from '../models/live';
 import { LiveNovoProduto } from '../models/liveNovoProduto';
+import { Produto } from 'src/app/product/models/produto';
 
 @Component({
   selector: 'app-live-incluir-produto',
@@ -21,6 +22,7 @@ export class LiveIncluirProdutoComponent implements OnInit {
   @Input() idLive: Live;
   titulo_modal: string = 'Editar Produto';
   categories: Category[] = [];
+  produtos: Produto[] = [];
   constructor(public activeModal: NgbActiveModal,
               private _fb: FormBuilder,
               private productService: ProdutoService,
@@ -37,6 +39,7 @@ export class LiveIncluirProdutoComponent implements OnInit {
 
   public carregarCategories() {
     this.productService.readAllCategories().subscribe(cat =>  { this.categories = cat; });
+    this.productService.readAll().subscribe(prod => {this.produtos = prod});
   }
 
 
@@ -60,6 +63,25 @@ export class LiveIncluirProdutoComponent implements OnInit {
   public categoriaId = this.formProduto.controls.categoriaId;
   public preco = this.formProduto.controls.preco;
 
+  public pesquisarProduto( codigo: string) {
+    console.log(this.produtos);
+    console.log(codigo);
+    let produtosEncontrados = this.produtos.filter(p => p.codigo == codigo );
+    console.log(produtosEncontrados);
+    if(produtosEncontrados.length > 0) {
+      this.product = new LiveNovoProduto ();
+
+
+      this.codigo.setValue(produtosEncontrados[0].codigo);
+      this.descricao.setValue(produtosEncontrados[0].descricao);
+      this.especificacao.setValue(produtosEncontrados[0].especificacao);
+      this.ativo.setValue(1);
+      this.categoriaId.setValue(produtosEncontrados[0].categoriaId);
+      this.preco.setValue(this.currencyPipe.transform(produtosEncontrados[0].preco, 'BRL', '', '1.2-2'));
+
+
+    }
+  }
   public carregarForm(product: LiveNovoProduto) {
 
     if(this.product) {

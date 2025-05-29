@@ -10,7 +10,7 @@
     <div class="col-lg-12">
       <div class="form-group">
         <label>Código</label>
-        <input placeholder="Código" (keypress)="_funcoesUtils.keyPressNumbers($event)" class="form-control"  formControlName="codigo" type="text" trim="blur" maxlength="100" required>
+        <input placeholder="Código" (keypress)="_funcoesUtils.keyPressNumbers($event)" (blur)="this.pesquisarProduto(codigo.value)" class="form-control"  formControlName="codigo" type="text" trim="blur" maxlength="100" required>
         <div class="text-danger"  *ngIf="codigo.invalid && !codigo.pristine">Campo de preenchimento obrigatório!</div >
     </div>
     <br>
