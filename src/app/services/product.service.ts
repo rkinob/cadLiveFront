@@ -54,6 +54,11 @@ public idProdutoPai: BehaviorSubject<string> = new BehaviorSubject<string>("");
  searchByProdutoPai(produtoPaiId: string): Observable<any> {
     return this.httpClient.get<any>(this.baseURL + '/ListarProdutosVinculados/' + produtoPaiId, this.ObterAuthHeaderJson());
   }
+
+  buscarTodosPadrao(): Observable<any> {
+    return this.httpClient.get<any>(this.baseURL + '/ListarProdutosPadrao/' , this.ObterAuthHeaderJson());
+  }
+
   createCategoria(categoria: Category): Observable<Category> {
     return this.httpClient.post<Category>(this.baseURLCat + '/incluir', JSON.stringify(categoria), this.ObterAuthHeaderJson())
     .pipe(catchError(this.errorHandler));
