@@ -15,6 +15,7 @@ import { CategoriaListaComponent } from "./categoria/categoria-lista/categoria-l
 import { CategoriaModalCreateEditComponent } from "./categoria/categoria-modal-create-edit/categoria-modal-create-edit.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ProdutosVinculadosComponent } from './produtos-vinculados/produtos-vinculados.component';
+import { ReajustarPrecoComponent } from './reajustar-preco/reajustar-preco.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ProdutosVinculadosComponent } from './produtos-vinculados/produtos-vinc
     ProdutoModalCreateEditComponent,
     CategoriaListaComponent,
     CategoriaModalCreateEditComponent,
-    ProdutosVinculadosComponent
+    ProdutosVinculadosComponent,
+    ReajustarPrecoComponent
   ],
   imports: [
     CommonModule,

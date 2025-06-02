@@ -101,6 +101,9 @@ export class ProdutoModalCreateEditComponent implements OnInit {
   }
   showProductList = false;
 
+  calcularPreco() {
+
+  }
 ngAfterViewInit() {
   setTimeout(() => {
     this.showProductList = true;

@@ -43,9 +43,8 @@
   <br>
   <div class="form-group col-lg-3">
     <label>Preço de Venda</label>
-    <input placeholder="Preço de Venda" class="form-control" formControlName="preco" type="text" trim="blur" maxlength="100"     required>
-    <div class="text-danger"  *ngIf="preco.errors?.['required'] && !preco.pristine">Campo de preenchimento obrigatório!</div >
-    <div class="text-danger"  *ngIf="preco.errors?.['pattern'] && !preco.pristine">Valor inválido!</div >
+    <input placeholder="Preço de Venda" class="form-control" formControlName="preco" type="text" trim="blur" maxlength="100" [readonly]="!!product"  />
+     <button  type="button"  *ngIf="product"  class="btn btn-success" (click)="calcularPreco()" >Reajustar Preço</button>&nbsp;
 </div>
 </div>
 <br>
