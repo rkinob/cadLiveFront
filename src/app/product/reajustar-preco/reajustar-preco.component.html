@@ -1,1 +1,53 @@
-<p>reajustar-preco works!</p>
+<div class="modal-header">
+  <h4 class="modal-title">{{titulo_modal}}</h4>
+  <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="activeModal.close('Close click')">&times;</button> -->
+</div>
+<form [formGroup]="formProduto" (ngSubmit)="salvar()">
+
+  <div class="modal-body">
+    <div class="col-lg-12">
+      <div class="form-group">
+        <label>Código</label>
+        <input placeholder="Código" class="form-control"  formControlName="codigo" type="text" trim="blur" maxlength="100" required>
+        <div class="text-danger"  *ngIf="codigo.invalid && !codigo.pristine">Campo de preenchimento obrigatório!</div >
+    </div>
+    <br>
+    <div class="form-group">
+        <label>Produto</label>
+        <input placeholder="Produto" class="form-control"  formControlName="descricao" oninput="this.value = this.value.toUpperCase()" type="text" trim="blur" maxlength="100" required>
+        <div class="text-danger"  *ngIf="descricao.invalid && !descricao.pristine">Campo de preenchimento obrigatório!</div >
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Justificativa</label>
+      <textarea placeholder="Especificação" cols="150" rows="5" class="form-control" formControlName="justificativa" oninput="this.value = this.value.toUpperCase()" type="text" trim="blur" maxlength="500" required></textarea>
+      <div class="text-danger"  *ngIf="justificativa.invalid && !justificativa.pristine">Campo de preenchimento obrigatório!</div >
+  </div>
+  <br>
+
+
+  <div class="form-group col-lg-3">
+      <label>Percentual Ganho</label>
+      <input placeholder="Pencentual de Ganho" class="form-control" formControlName="percentualGanho" type="text"  maxlength="100"    required>
+      <div class="text-danger"  *ngIf="percentualGanho.errors?.['required'] && !percentualGanho.pristine">Campo de preenchimento obrigatório!</div >
+      <div class="text-danger"  *ngIf="percentualGanho.errors?.['pattern'] && !percentualGanho.pristine">Valor inválido!</div >
+
+  </div>
+
+  <br>
+  <div class="form-group col-lg-3">
+    <label>Preço de Venda</label>
+    <input placeholder="Preço de Venda" class="form-control" formControlName="preco" type="text" trim="blur" maxlength="100"  />
+
+</div>
+</div>
+<br>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fechar</button>
+    <input type="submit" class="btn btn-success" value="Salvar" [disabled]="!formProduto.valid">
+  </div>
+</form>
+

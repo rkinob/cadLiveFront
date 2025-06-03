@@ -11,5 +11,5 @@ export class Produto {
   preco: number;
   precoCusto: number;
   produtoPaiId: string;
-
+  prcGanho: number;
 }

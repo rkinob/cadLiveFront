@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { CurrencyPipe } from '@angular/common';
 import {LOCALE_ID} from '@angular/core';
+import { ReajustarPrecoComponent } from '../reajustar-preco/reajustar-preco.component';
 
 @Component({
   selector: 'app-product-modal-create-edit',
@@ -38,8 +39,10 @@ export class ProdutoModalCreateEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarCategories();
-    console.log(this.product);
     this.carregarForm(this.product);
+    this.productService.precoProduto.subscribe(novoPreco => {this.product.preco = novoPreco; this.cd.detectChanges(); } );
+
+
   }
 
   public carregarCategories() {
@@ -57,7 +60,8 @@ export class ProdutoModalCreateEditComponent implements OnInit {
     categoriaId: ['',  [Validators.required]],
     precoCusto: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
     preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
-    produtoPaiId: ['']
+    produtoPaiId: [''],
+    percentualGanho: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]]
 
   });
 
@@ -70,7 +74,7 @@ export class ProdutoModalCreateEditComponent implements OnInit {
   public preco = this.formProduto.controls.preco;
   public precoCusto = this.formProduto.controls.precoCusto;
   public produtoPaiId = this.formProduto.controls.produtoPaiId;
-
+  public percentualGanho = this.formProduto.controls.percentualGanho;
   public carregarForm(product: Produto) {
 
     if(this.product) {
@@ -83,6 +87,8 @@ export class ProdutoModalCreateEditComponent implements OnInit {
       this.preco.setValue(this.currencyPipe.transform(product.preco, 'BRL', '', '1.2-2'));
       this.precoCusto.setValue(this.currencyPipe.transform(product.precoCusto, 'BRL', '', '1.2-2'));
       this.produtoPaiId.setValue(product.produtoPaiId);
+      this.percentualGanho.setValue(product.prcGanho);
+
       this.titulo_modal = "Editar Produto";
     }
     else {
@@ -102,7 +108,16 @@ export class ProdutoModalCreateEditComponent implements OnInit {
   showProductList = false;
 
   calcularPreco() {
+    const modalRef = this.modalService.open(ReajustarPrecoComponent, {size: 'lg' });
+    modalRef.componentInstance.product = this.product;
 
+    modalRef.result.then((data) => {
+      // on close
+
+
+    }, (reason) => {
+      // on dismiss
+    });
   }
 ngAfterViewInit() {
   setTimeout(() => {
@@ -134,7 +149,7 @@ ngAfterViewInit() {
       let product = this.formProduto.value;
       product.preco = this._funcoesUtils.parsePotentiallyGroupedFloat(product.preco.toString());
       product.precoCusto = this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
-
+      product.prcGanho = this._funcoesUtils.parsePotentiallyGroupedFloat(product.prcGanho.toString());
       if (this.product?.id) {
         this.updateProduto(product);
       }
@@ -142,7 +157,6 @@ ngAfterViewInit() {
       else {
         product.ativo = 1;
         product.produtoPaiId = this.idProdutoPai;
-        console.log(product);
         this.addProduto(product);
       }
 

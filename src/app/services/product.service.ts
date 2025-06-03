@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Produto } from '../product/models/produto';
 import { PaginatedList } from '../models/paginated-list';
 import { BaseService } from './base.service';
 import { BaseResponse } from '../product/models/base-response';
 import { catchError } from 'rxjs/operators';
 import { Category } from '../product/models/categoria';
+import { ReajustePreco } from '../product/models/reajustePreco';
 
 
 
@@ -17,13 +18,16 @@ export class ProdutoService extends BaseService  {
   private baseURL = this.urlServiceV1 + 'api/Produto';
   private baseURLCat = this.urlServiceV1 + 'api/Categoria';
 public idProdutoPai: BehaviorSubject<string> = new BehaviorSubject<string>("");
-
+  public precoProduto: Subject<number> = new Subject<number>();
   constructor(private httpClient: HttpClient) {
     super();
   }
 
   readAllCategories(): Observable<any> {
     return this.httpClient.get<BaseResponse>(this.baseURLCat + '/ListarCategorias', this.ObterAuthHeaderJson());
+  }
+ obterValorCustoProduto(codigo: string): Observable<number> {
+    return this.httpClient.get<number>(this.baseURL + '/CalcularCusto/' + codigo, this.ObterAuthHeaderJson());
   }
 
 
@@ -43,7 +47,9 @@ public idProdutoPai: BehaviorSubject<string> = new BehaviorSubject<string>("");
   update(product: Produto): Observable<Produto> {
     return this.httpClient.put<Produto>(this.baseURL + '/alterar', JSON.stringify(product), this.ObterAuthHeaderJson());
   }
-
+ reajustarPreco(product: ReajustePreco): Observable<ReajustePreco> {
+    return this.httpClient.post<ReajustePreco>(this.baseURL + '/reajustarPreco', JSON.stringify(product), this.ObterAuthHeaderJson());
+  }
   delete(id: string): Observable<Produto> {
     return this.httpClient.delete<Produto>(`${this.baseURL}/${id}`, this.ObterAuthHeaderJson());
   }
