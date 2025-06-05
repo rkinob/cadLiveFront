@@ -5,5 +5,4 @@ export class ReajustePreco {
   justificativaAlteracao: string;
   preco: number;
   usuarioInclusaoId: string;
-  prcGanho: number;
 }

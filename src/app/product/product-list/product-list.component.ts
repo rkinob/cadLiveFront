@@ -92,6 +92,7 @@ carregou = false;
       if(confirmaExclusao) {
         this.productService.delete(product.id).subscribe(confirmacao => {
             this.toastr.success("Produto excluído com sucesso");
+            this.retrieveProdutos();
         });
       }
     });
@@ -124,11 +125,9 @@ carregou = false;
   const params = this.getRequestParams(this.productName, this.page, this.pageSize);
   let obsService;
 
-  if (this.idProdutoPai) {
-    obsService = this.productService.searchByProdutoPai(this.idProdutoPai);
-  } else {
-    obsService = this.productService.searchByName(params, this.productName);
-  }
+
+  obsService = this.productService.searchByName(params, this.productName);
+
 
   // Redefine produtos e count antes de iniciar a requisição
   this.products = [];
@@ -140,8 +139,6 @@ carregou = false;
       // Atrasamos a atualização para depois da detecção de mudanças
       setTimeout(() => {
         this.count = response.length;
-        console.log(this.pageSize);
-        console.log(this.page);
 
         this.products = this.paginate(response, this.pageSize, this.page);
         this.carregou = true;

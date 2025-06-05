@@ -23,16 +23,7 @@
       <textarea placeholder="Especificação" cols="150" rows="5" class="form-control" formControlName="justificativa" oninput="this.value = this.value.toUpperCase()" type="text" trim="blur" maxlength="500" required></textarea>
       <div class="text-danger"  *ngIf="justificativa.invalid && !justificativa.pristine">Campo de preenchimento obrigatório!</div >
   </div>
-  <br>
 
-
-  <div class="form-group col-lg-3">
-      <label>Percentual Ganho</label>
-      <input placeholder="Pencentual de Ganho" class="form-control" formControlName="percentualGanho" type="text"  maxlength="100"    required>
-      <div class="text-danger"  *ngIf="percentualGanho.errors?.['required'] && !percentualGanho.pristine">Campo de preenchimento obrigatório!</div >
-      <div class="text-danger"  *ngIf="percentualGanho.errors?.['pattern'] && !percentualGanho.pristine">Valor inválido!</div >
-
-  </div>
 
   <br>
   <div class="form-group col-lg-3">

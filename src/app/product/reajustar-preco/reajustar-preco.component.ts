@@ -7,6 +7,7 @@ import { ProdutoService } from 'src/app/services/product.service';
 import { FuncoesUtils } from 'src/app/utils/funcoes';
 import { Produto } from '../models/produto';
 import { ReajustePreco } from '../models/reajustePreco';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-reajustar-preco',
@@ -23,12 +24,13 @@ export class ReajustarPrecoComponent implements OnInit {
                 public _funcoesUtils: FuncoesUtils,
                 private modalService: NgbModal,
                 public currencyPipe: CurrencyPipe,
+                private spinner: NgxSpinnerService,
               private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
 
     this.carregarForm(this.product);
-    this.productService.obterValorCustoProduto(this.product.codigo).subscribe (preco => {console.log(preco); this.preco.setValue(preco)});
+    //this.productService.obterValorCustoProduto(this.product.codigo).subscribe (preco => {console.log(preco); this.preco.setValue(preco)});
   }
 
   formProduto = this._fb.group({
@@ -36,9 +38,7 @@ export class ReajustarPrecoComponent implements OnInit {
     codigo: ['', [Validators.required]],
     descricao: ['', [Validators.required]],
     justificativa: ['', [Validators.required]],
-    preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]],
-    percentualGanho: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]]
-
+    preco: ['', [Validators.required, Validators.pattern(/^[+-]?([0-9]+\,?[0-9]*|\,[0-9]+)$/)]]
   });
 
   public idProduto = this.formProduto.controls.id;
@@ -46,7 +46,6 @@ export class ReajustarPrecoComponent implements OnInit {
   public descricao = this.formProduto.controls.descricao;
   public justificativa = this.formProduto.controls.justificativa;
   public preco = this.formProduto.controls.preco;
-  public percentualGanho = this.formProduto.controls.percentualGanho;
 
   public carregarForm(product: Produto) {
 
@@ -54,7 +53,6 @@ export class ReajustarPrecoComponent implements OnInit {
       this.codigo.setValue(this.product.codigo);
       this.descricao.setValue(product.descricao);
 
-      this.percentualGanho.setValue(product.prcGanho);
 
       this.titulo_modal = "Editar Produto";
 
@@ -78,7 +76,6 @@ export class ReajustarPrecoComponent implements OnInit {
 
       let product = this.formProduto.value;
       reajustePreco.preco = this._funcoesUtils.parsePotentiallyGroupedFloat(product.preco.toString());
-      reajustePreco.prcGanho = this._funcoesUtils.parsePotentiallyGroupedFloat(product.prcGanho.toString());
       reajustePreco.justificativaAlteracao = product.justificativa;
       reajustePreco.idProduto = this.product.id;
 

@@ -40,8 +40,8 @@ export class ProdutoModalCreateEditComponent implements OnInit {
   ngOnInit(): void {
     this.carregarCategories();
     this.carregarForm(this.product);
-    this.productService.precoProduto.subscribe(novoPreco => {this.product.preco = novoPreco; this.cd.detectChanges(); } );
-
+    this.productService.precoProduto.subscribe(novoPreco => {this.product.preco = novoPreco; this.preco.setValue(this.currencyPipe.transform(novoPreco, 'BRL', '', '1.2-2')); } );
+    this.productService.obterValorCustoProduto(this.product.codigo).subscribe (preco => {  this.precoCusto.setValue(this.currencyPipe.transform(preco, 'BRL', '', '1.2-2')); });
 
   }
 
@@ -149,7 +149,7 @@ ngAfterViewInit() {
       let product = this.formProduto.value;
       product.preco = this._funcoesUtils.parsePotentiallyGroupedFloat(product.preco.toString());
       product.precoCusto = this._funcoesUtils.parsePotentiallyGroupedFloat(product.precoCusto.toString());
-      product.prcGanho = this._funcoesUtils.parsePotentiallyGroupedFloat(product.prcGanho.toString());
+      product.prcGanho = this._funcoesUtils.parsePotentiallyGroupedFloat(product.percentualGanho.toString());
       if (this.product?.id) {
         this.updateProduto(product);
       }
